@@ -1,6 +1,8 @@
-// SpecOS Core Type Contracts (Reverse-engineered from Notion blocks and Linear issues)
+import { LinearTicket } from './linear';
+import { EdgeCase } from './edgecases';
 
-export type PriorityLevel = 1 | 2 | 3 | 4; // 1: Urgent, 2: High, 3: Medium, 4: Low
+export * from './linear';
+export * from './edgecases';
 
 export interface GherkinCriterion {
   id: string;
@@ -22,26 +24,6 @@ export interface SchemaDiff {
   action: 'create' | 'modify' | 'deprecate';
   description: string;
   fields: SchemaField[];
-}
-
-export type EdgeCaseCategory = 'concurrency' | 'idempotency' | 'rate_limit' | 'ux_recovery';
-
-export interface EdgeCase {
-  id: string;
-  category: EdgeCaseCategory;
-  severity: 'High' | 'Medium' | 'Low';
-  title: string;
-  scenario: string;
-  mitigation: string;
-}
-
-export interface LinearTicket {
-  id: string;
-  title: string;
-  priority: PriorityLevel;
-  estimate: 1 | 2 | 3 | 5 | 8;
-  area: 'Backend' | 'Frontend' | 'Infra' | 'Security';
-  acceptanceCriteria: string[];
 }
 
 export type MockupType = 'checkout' | 'switcher' | 'canvas' | 'generic';
