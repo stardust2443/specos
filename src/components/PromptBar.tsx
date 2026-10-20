@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { motion } from 'motion/react';
 import { ArrowRight, Sparkles, Command } from 'lucide-react';
 import { DemoPreset } from '../types/spec';
 
@@ -10,13 +11,13 @@ interface Props {
   isGenerating: boolean;
 }
 
-export const PromptBar: React.FC<Props> = ({
+export const PromptBar = ({
   presets,
   activePresetId,
   onSelectPreset,
   onSubmitCustomPrompt,
   isGenerating,
-}) => {
+}: Props) => {
   const [prompt, setPrompt] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -27,50 +28,65 @@ export const PromptBar: React.FC<Props> = ({
   };
 
   return (
-    <div className="space-y-3">
-      <form onSubmit={handleSubmit} className="relative flex items-center">
-        <div className="absolute left-4 text-spec-textMuted pointer-events-none">
-          <Sparkles className="w-4 h-4 text-spec-accent" />
+    <div className="w-full space-y-3.5">
+      {/* Input Field */}
+      <form onSubmit={handleSubmit} className="relative flex items-center group">
+        <div className="absolute left-4 text-apple-accent pointer-events-none transition-transform group-focus-within:scale-110">
+          <Sparkles className="w-4 h-4" />
         </div>
+
         <input
           type="text"
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
-          placeholder="Enter a 1-sentence feature prompt (e.g. 'Add Apple Pay 1-click checkout for guest mobile users')..."
-          className="w-full pl-11 pr-28 py-3.5 bg-[#121216] border border-[#222228] focus:border-spec-accent rounded-xl text-sm text-white placeholder-spec-textMuted outline-none shadow-xl transition-all"
+          placeholder="Enter a 1-sentence feature prompt (e.g. 'Add one-click Apple Pay guest checkout with zero account creation')..."
+          className="w-full pl-11 pr-32 py-3.5 glass-input rounded-2xl text-sm text-apple-text placeholder-apple-textSecondary focus:border-apple-accent focus:ring-4 focus:ring-apple-accent/15 outline-none transition-all shadow-apple-md font-sans"
         />
-        <div className="absolute right-2.5 flex items-center space-x-1.5">
+
+        <div className="absolute right-2 flex items-center space-x-1.5">
           <button
             type="submit"
             disabled={!prompt.trim() || isGenerating}
-            className="px-3 py-1.5 bg-spec-accent hover:bg-spec-accentHover disabled:opacity-40 text-white text-xs font-semibold rounded-lg flex items-center space-x-1 transition-all"
+            className="px-3.5 py-1.5 bg-apple-accent hover:bg-apple-accentHover disabled:opacity-30 disabled:pointer-events-none text-white text-xs font-semibold rounded-xl flex items-center space-x-1.5 transition-all shadow-apple-sm apple-pressable"
           >
-            <span>{isGenerating ? 'Synthesizing...' : 'Generate'}</span>
+            <span>{isGenerating ? 'Synthesizing...' : 'Generate Spec'}</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </button>
         </div>
       </form>
 
-      {/* Preset Chips for instant recruiter evaluation */}
-      <div className="flex flex-wrap items-center gap-2 pt-1">
-        <span className="text-[11px] font-mono uppercase text-spec-textMuted flex items-center space-x-1 mr-1">
+      {/* Preset Pill Carousel with Spring Physics */}
+      <div className="flex flex-wrap items-center gap-2">
+        <div className="flex items-center space-x-1 text-[11px] font-mono text-apple-textTertiary mr-1">
           <Command className="w-3 h-3" />
-          <span>Presets:</span>
-        </span>
+          <span>Curated Presets:</span>
+        </div>
+
         {presets.map((preset) => {
           const isSelected = preset.id === activePresetId;
           return (
             <button
               key={preset.id}
               onClick={() => onSelectPreset(preset)}
-              className={`text-xs px-2.5 py-1 rounded-md border transition-all flex items-center space-x-1.5 ${
+              className={`relative px-3 py-1.5 rounded-xl text-xs font-medium transition-all flex items-center space-x-2 apple-pressable ${
                 isSelected
-                  ? 'bg-spec-accent/20 border-spec-accent text-white shadow-sm'
-                  : 'bg-[#121216] border-[#222228] text-spec-textMuted hover:text-white hover:border-[#33333F]'
+                  ? 'text-white border border-apple-accent/60 bg-apple-accent/15 shadow-apple-sm'
+                  : 'text-apple-textSecondary hover:text-white glass-pill hover:border-white/20'
               }`}
             >
-              <span className="font-medium">{preset.name}</span>
-              <span className="text-[10px] text-spec-textMuted opacity-70 font-mono">({preset.tag})</span>
+              {isSelected && (
+                <motion.div
+                  layoutId="activePresetGlow"
+                  className="absolute inset-0 rounded-xl bg-apple-accent/10 border border-apple-accent/40 pointer-events-none"
+                  transition={{ type: 'spring', damping: 25, stiffness: 350 }}
+                />
+              )}
+              <span className="relative z-10">{preset.name}</span>
+              <span className={`relative z-10 text-[10px] font-mono px-1.5 py-0.2 rounded-full ${
+                isSelected ? 'bg-apple-accent/30 text-white' : 'bg-white/5 text-apple-textTertiary'
+              }`}>
+                {preset.tag}
+              </span>
             </button>
           );
         })}

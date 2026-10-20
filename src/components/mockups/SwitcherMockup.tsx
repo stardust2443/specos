@@ -1,11 +1,12 @@
 import { useState } from 'react';
+import { motion } from 'motion/react';
 import { Layers, Check, Command, Bell } from 'lucide-react';
 
 interface Props {
   config: Record<string, any>;
 }
 
-export const SwitcherMockup: React.FC<Props> = ({ config }) => {
+export const SwitcherMockup = ({ config }: Props) => {
   const [activeId, setActiveId] = useState('1');
   const [switchLatency, setSwitchLatency] = useState<number | null>(null);
 
@@ -19,18 +20,24 @@ export const SwitcherMockup: React.FC<Props> = ({ config }) => {
     const start = performance.now();
     setActiveId(id);
     const elapsed = Math.round(performance.now() - start);
-    setSwitchLatency(elapsed || 14);
+    setSwitchLatency(elapsed || 12);
   };
 
   return (
-    <div className="bg-[#121216] border border-[#222228] rounded-xl p-5 max-w-md mx-auto shadow-2xl">
-      <div className="flex items-center justify-between pb-3 border-b border-[#222228]">
+    <div className="max-w-sm mx-auto glass-panel rounded-3xl p-6 shadow-2xl border border-white/10">
+      {/* Top Handle */}
+      <div className="w-10 h-1 bg-white/20 rounded-full mx-auto mb-5" />
+
+      <div className="flex items-center justify-between pb-3.5 border-b border-white/[0.08]">
         <div className="flex items-center space-x-2">
-          <Layers className="w-4 h-4 text-spec-accent" />
-          <h4 className="text-sm font-medium text-white">Linear Workspace Switcher</h4>
+          <Layers className="w-4 h-4 text-apple-accent" />
+          <h4 className="text-xs font-semibold text-apple-text uppercase tracking-wider font-mono">
+            Workspace Quick Switcher
+          </h4>
         </div>
-        <div className="flex items-center space-x-1.5 text-[11px] font-mono text-spec-textMuted bg-[#181820] px-2 py-0.5 rounded border border-[#282834]">
-          <Command className="w-3 h-3" />
+
+        <div className="flex items-center space-x-1 text-[10px] font-mono text-apple-textTertiary bg-white/[0.04] px-2 py-0.5 rounded-md border border-white/[0.06]">
+          <Command className="w-2.5 h-2.5" />
           <span>+ [1-3]</span>
         </div>
       </div>
@@ -42,42 +49,50 @@ export const SwitcherMockup: React.FC<Props> = ({ config }) => {
             <button
               key={ws.id}
               onClick={() => handleSwitch(ws.id)}
-              className={`w-full flex items-center justify-between p-3 rounded-lg border text-left transition-all ${
+              className={`relative w-full flex items-center justify-between p-3 rounded-2xl border text-left transition-all apple-pressable ${
                 isActive
-                  ? 'bg-spec-accent/15 border-spec-accent text-white shadow-sm'
-                  : 'bg-[#16161D] border-[#222228] text-spec-textMuted hover:text-white hover:border-[#33333F]'
+                  ? 'bg-apple-accent/15 border-apple-accent text-white shadow-apple-sm'
+                  : 'bg-white/[0.02] border-white/[0.06] text-apple-textSecondary hover:text-white hover:border-white/[0.14]'
               }`}
             >
-              <div className="flex items-center space-x-3">
-                <div className={`w-6 h-6 rounded flex items-center justify-center text-xs font-mono font-bold ${
-                  isActive ? 'bg-spec-accent text-white' : 'bg-[#222228] text-spec-textMuted'
+              {isActive && (
+                <motion.div
+                  layoutId="activeWorkspaceGlow"
+                  className="absolute inset-0 rounded-2xl bg-apple-accent/10 pointer-events-none"
+                  transition={{ type: 'spring', damping: 25, stiffness: 350 }}
+                />
+              )}
+
+              <div className="flex items-center space-x-3 relative z-10">
+                <div className={`w-7 h-7 rounded-xl flex items-center justify-center text-xs font-mono font-bold ${
+                  isActive ? 'bg-apple-accent text-white shadow-sm' : 'bg-white/[0.06] text-apple-textSecondary'
                 }`}>
                   {idx + 1}
                 </div>
                 <div>
-                  <div className="text-xs font-medium text-white">{ws.name}</div>
-                  <div className="text-[10px] text-spec-textMuted font-mono">shard: idxdb_{ws.id}_sharded</div>
+                  <div className="text-xs font-semibold text-apple-text">{ws.name}</div>
+                  <div className="text-[10px] text-apple-textTertiary font-mono">shard: idxdb_{ws.id}_sharded</div>
                 </div>
               </div>
 
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-2 relative z-10">
                 {ws.unread > 0 && (
-                  <span className="flex items-center space-x-1 text-[11px] font-medium bg-red-500/20 text-red-400 px-2 py-0.5 rounded-full border border-red-500/30">
+                  <span className="flex items-center space-x-1 text-[10px] font-medium bg-red-500/15 text-red-300 px-2 py-0.5 rounded-full border border-red-500/25">
                     <Bell className="w-2.5 h-2.5" />
                     <span>{ws.unread}</span>
                   </span>
                 )}
-                {isActive && <Check className="w-4 h-4 text-spec-accent" />}
+                {isActive && <Check className="w-4 h-4 text-apple-accent" />}
               </div>
             </button>
           );
         })}
       </div>
 
-      <div className="pt-3 border-t border-[#222228] flex items-center justify-between text-xs text-spec-textMuted font-mono">
-        <span>Active Memory Shard: <strong className="text-white">IndexedDB (0ms)</strong></span>
+      <div className="pt-3 border-t border-white/[0.06] flex items-center justify-between text-[11px] text-apple-textTertiary font-mono">
+        <span>Memory Shard: <strong className="text-apple-text">0ms (IndexedDB)</strong></span>
         {switchLatency !== null && (
-          <span className="text-emerald-400 font-semibold">Switch Latency: {switchLatency}ms</span>
+          <span className="text-emerald-400 font-semibold">{switchLatency}ms transition</span>
         )}
       </div>
     </div>

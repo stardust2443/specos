@@ -1,18 +1,19 @@
 import { useState } from 'react';
-import { Apple, CheckCircle2, ShieldCheck, ArrowRight, Loader2 } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
+import { Apple, CheckCircle2, ShieldCheck, ArrowRight, Loader2, CreditCard } from 'lucide-react';
 
 interface Props {
   config: Record<string, any>;
 }
 
-export const CheckoutMockup: React.FC<Props> = ({ config }) => {
+export const CheckoutMockup = ({ config }: Props) => {
   const [status, setStatus] = useState<'idle' | 'authorizing' | 'success'>('idle');
 
   const handlePay = () => {
     setStatus('authorizing');
     setTimeout(() => {
       setStatus('success');
-    }, 1200);
+    }, 1400);
   };
 
   const handleReset = () => {
@@ -20,66 +21,124 @@ export const CheckoutMockup: React.FC<Props> = ({ config }) => {
   };
 
   return (
-    <div className="bg-[#121216] border border-[#222228] rounded-xl p-5 max-w-md mx-auto shadow-2xl">
-      <div className="flex items-center justify-between pb-4 border-b border-[#222228]">
+    <div className="relative max-w-sm mx-auto glass-panel rounded-3xl p-6 shadow-2xl border border-white/10 overflow-hidden">
+      {/* Top Sheet Handle (Emil Kowalski / Apple Drawer standard) */}
+      <div className="w-10 h-1 bg-white/20 rounded-full mx-auto mb-5" />
+
+      {/* Header Item Details */}
+      <div className="flex items-center justify-between pb-4 border-b border-white/[0.08]">
         <div>
-          <span className="text-xs uppercase font-mono text-spec-accent font-semibold tracking-wider">PDP Express Checkout</span>
-          <h4 className="text-sm font-medium text-white">{config.productName || 'Mechanical Keychron Q1 Pro'}</h4>
+          <span className="text-[10px] uppercase font-mono tracking-wider text-apple-accent font-semibold">
+            Apple Pay Express
+          </span>
+          <h4 className="text-sm font-semibold text-apple-text mt-0.5">
+            {config.productName || 'Mechanical Keychron Q1 Pro'}
+          </h4>
         </div>
-        <span className="text-base font-semibold font-mono text-white">${config.price?.toFixed(2) || '199.00'}</span>
+        <span className="text-lg font-bold font-mono text-apple-text tracking-tight">
+          ${config.price?.toFixed(2) || '199.00'}
+        </span>
       </div>
 
-      <div className="py-5 space-y-4">
-        {status === 'idle' && (
-          <>
-            <div className="bg-[#181820] p-3 rounded-lg border border-[#282834] text-xs space-y-1.5 text-spec-textMuted">
-              <div className="flex justify-between">
-                <span>Shipping Destination:</span>
-                <span className="text-white font-medium">San Francisco, CA 94107</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Estimated Delivery:</span>
-                <span className="text-emerald-400 font-medium">Tomorrow, 2-day Air</span>
-              </div>
-            </div>
-
-            <button
-              onClick={handlePay}
-              className="w-full py-3 px-4 bg-white hover:bg-neutral-200 text-black font-semibold rounded-lg flex items-center justify-center space-x-2 transition-all shadow-md active:scale-[0.98]"
+      <div className="py-5 min-h-[220px] flex flex-col justify-center">
+        <AnimatePresence mode="wait">
+          {status === 'idle' && (
+            <motion.div
+              key="idle"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 350 }}
+              className="space-y-4"
             >
-              <Apple className="w-4 h-4 fill-black" />
-              <span>Pay with Apple Pay</span>
-            </button>
+              {/* Shipping & Card Selector */}
+              <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/[0.06] text-xs space-y-2">
+                <div className="flex items-center justify-between text-apple-textSecondary">
+                  <span className="text-[11px]">Card:</span>
+                  <div className="flex items-center space-x-1.5 text-apple-text font-medium">
+                    <CreditCard className="w-3.5 h-3.5 text-apple-accent" />
+                    <span>Apple Card (•• 9214)</span>
+                  </div>
+                </div>
+                <div className="flex items-center justify-between text-apple-textSecondary">
+                  <span className="text-[11px]">Shipping:</span>
+                  <span className="text-apple-text font-medium">San Francisco, CA 94107</span>
+                </div>
+              </div>
 
-            <div className="flex items-center justify-center space-x-1.5 text-[11px] text-spec-textMuted">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Tokenized 256-bit biometrics. Zero card numbers stored.</span>
-            </div>
-          </>
-        )}
+              {/* The Apple Pay Button */}
+              <button
+                onClick={handlePay}
+                className="w-full py-3.5 px-4 bg-white hover:bg-neutral-100 active:scale-[0.98] text-black font-semibold rounded-2xl flex items-center justify-center space-x-2 transition-transform shadow-lg shadow-white/5 apple-pressable"
+              >
+                <Apple className="w-4 h-4 fill-black" />
+                <span className="text-sm">Pay with Apple Pay</span>
+              </button>
 
-        {status === 'authorizing' && (
-          <div className="py-6 text-center space-y-3">
-            <Loader2 className="w-8 h-8 text-spec-accent animate-spin mx-auto" />
-            <div className="text-sm font-medium text-white">Authenticating FaceID...</div>
-            <p className="text-xs text-spec-textMuted font-mono">POST /api/v1/checkout/express-guest (Idempotency: 8f9b...)</p>
-          </div>
-        )}
+              <div className="flex items-center justify-center space-x-1.5 text-[11px] text-apple-textTertiary">
+                <ShieldCheck className="w-3.5 h-3.5 text-apple-emerald" />
+                <span>Zero forms typed • Biometric tokenized</span>
+              </div>
+            </motion.div>
+          )}
 
-        {status === 'success' && (
-          <div className="py-4 text-center space-y-3">
-            <CheckCircle2 className="w-10 h-10 text-emerald-400 mx-auto" />
-            <div className="text-base font-medium text-white">Order Confirmed #ORD-98214</div>
-            <p className="text-xs text-spec-textMuted">Receipt sent to Apple Pay iCloud relay. 0 form fields typed!</p>
-            <button
-              onClick={handleReset}
-              className="mt-2 text-xs text-spec-accent hover:underline flex items-center justify-center mx-auto space-x-1"
+          {status === 'authorizing' && (
+            <motion.div
+              key="authorizing"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 350 }}
+              className="py-6 text-center space-y-3"
             >
-              <span>Reset Demo Simulation</span>
-              <ArrowRight className="w-3 h-3" />
-            </button>
-          </div>
-        )}
+              <div className="relative w-12 h-12 mx-auto flex items-center justify-center">
+                <motion.div
+                  animate={{ scale: [1, 1.3, 1], opacity: [0.5, 0.2, 0.5] }}
+                  transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
+                  className="absolute inset-0 rounded-full bg-apple-accent/30"
+                />
+                <Loader2 className="w-7 h-7 text-apple-accent animate-spin" />
+              </div>
+
+              <div>
+                <div className="text-sm font-semibold text-apple-text">Scanning FaceID...</div>
+                <p className="text-[11px] text-apple-textSecondary font-mono mt-1">
+                  POST /api/v1/checkout/express-guest
+                </p>
+              </div>
+            </motion.div>
+          )}
+
+          {status === 'success' && (
+            <motion.div
+              key="success"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 350 }}
+              className="py-4 text-center space-y-3"
+            >
+              <div className="w-12 h-12 rounded-full bg-apple-emerald/15 border border-apple-emerald/30 flex items-center justify-center mx-auto text-apple-emerald shadow-apple-glow">
+                <CheckCircle2 className="w-7 h-7" />
+              </div>
+
+              <div>
+                <div className="text-base font-semibold text-apple-text">Order Confirmed #ORD-98214</div>
+                <p className="text-xs text-apple-textSecondary mt-1">
+                  Total latency: <strong>840ms</strong>. Direct receipt generated.
+                </p>
+              </div>
+
+              <button
+                onClick={handleReset}
+                className="mt-3 text-xs text-apple-accent hover:underline flex items-center justify-center mx-auto space-x-1 apple-pressable font-medium"
+              >
+                <span>Reset Simulation</span>
+                <ArrowRight className="w-3 h-3" />
+              </button>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );

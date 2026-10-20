@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { MessageSquare, CheckSquare, Square, RefreshCw, ExternalLink } from 'lucide-react';
+import { MessageSquare, CheckSquare, Square, RefreshCw, ExternalLink, Users } from 'lucide-react';
 
 interface Props {
   config: Record<string, any>;
 }
 
-export const CanvasMockup: React.FC<Props> = ({ config }) => {
+export const CanvasMockup = ({ config }: Props) => {
   const [items, setItems] = useState<Array<{ id: string; text: string; done: boolean; ticket: string }>>(
     config.items || [
       { id: '1', text: 'Rollback auth-service to v2.4.1', done: true, ticket: 'ENG-401' },
@@ -21,38 +21,51 @@ export const CanvasMockup: React.FC<Props> = ({ config }) => {
   };
 
   return (
-    <div className="bg-[#121216] border border-[#222228] rounded-xl p-5 max-w-md mx-auto shadow-2xl">
-      <div className="flex items-center justify-between pb-3 border-b border-[#222228]">
+    <div className="max-w-sm mx-auto glass-panel rounded-3xl p-6 shadow-2xl border border-white/10">
+      {/* Top Handle */}
+      <div className="w-10 h-1 bg-white/20 rounded-full mx-auto mb-5" />
+
+      <div className="flex items-center justify-between pb-3.5 border-b border-white/[0.08]">
         <div className="flex items-center space-x-2">
-          <MessageSquare className="w-4 h-4 text-emerald-400" />
-          <h4 className="text-xs font-mono font-medium text-white">{config.threadTitle || '#incident-sev1-auth-failure'}</h4>
+          <MessageSquare className="w-4 h-4 text-apple-emerald" />
+          <h4 className="text-xs font-mono font-semibold text-apple-text">
+            {config.threadTitle || '#incident-sev1-auth-failure'}
+          </h4>
         </div>
-        <div className="flex items-center space-x-1 text-[11px] text-emerald-400 font-mono">
-          <RefreshCw className="w-3 h-3 animate-spin" />
-          <span>Yjs CRDT Synced</span>
+
+        <div className="flex items-center space-x-1.5 text-[10px] text-emerald-400 font-mono bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
+          <RefreshCw className="w-2.5 h-2.5 animate-spin" />
+          <span>Yjs Synced</span>
         </div>
       </div>
 
       <div className="py-4 space-y-2.5">
-        <div className="text-[11px] font-mono uppercase tracking-wider text-spec-textMuted">Live Action Items Canvas:</div>
+        <div className="flex items-center justify-between text-[11px] font-mono text-apple-textTertiary">
+          <span>Action Items Canvas</span>
+          <div className="flex items-center space-x-1">
+            <Users className="w-3 h-3 text-apple-accent" />
+            <span>3 active peers</span>
+          </div>
+        </div>
+
         {items.map(item => (
           <div
             key={item.id}
             onClick={() => toggleItem(item.id)}
-            className="flex items-center justify-between p-2.5 rounded-lg bg-[#16161D] border border-[#222228] hover:border-[#33333F] cursor-pointer transition-all"
+            className="flex items-center justify-between p-3 rounded-2xl bg-white/[0.02] border border-white/[0.06] hover:border-white/[0.14] cursor-pointer transition-all apple-pressable"
           >
-            <div className="flex items-center space-x-2.5">
+            <div className="flex items-center space-x-3">
               {item.done ? (
-                <CheckSquare className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                <CheckSquare className="w-4 h-4 text-apple-emerald flex-shrink-0" />
               ) : (
-                <Square className="w-4 h-4 text-spec-textMuted flex-shrink-0" />
+                <Square className="w-4 h-4 text-apple-textTertiary flex-shrink-0" />
               )}
-              <span className={`text-xs ${item.done ? 'line-through text-spec-textMuted' : 'text-white'}`}>
+              <span className={`text-xs ${item.done ? 'line-through text-apple-textTertiary' : 'text-apple-text'}`}>
                 {item.text}
               </span>
             </div>
 
-            <div className="flex items-center space-x-1.5 font-mono text-[10px] bg-[#1E1E26] text-spec-accent px-2 py-0.5 rounded border border-[#2B2B38]">
+            <div className="flex items-center space-x-1 font-mono text-[10px] bg-white/[0.04] text-apple-accent px-2 py-0.5 rounded-md border border-white/[0.06]">
               <span>{item.ticket}</span>
               <ExternalLink className="w-2.5 h-2.5" />
             </div>
@@ -60,8 +73,8 @@ export const CanvasMockup: React.FC<Props> = ({ config }) => {
         ))}
       </div>
 
-      <div className="pt-3 border-t border-[#222228] text-right">
-        <span className="text-[11px] text-spec-textMuted">Click items to toggle Linear two-way state</span>
+      <div className="pt-3 border-t border-white/[0.06] text-right">
+        <span className="text-[11px] text-apple-textTertiary">Two-way optimistic sync to Linear backlog</span>
       </div>
     </div>
   );
