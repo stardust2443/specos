@@ -73,7 +73,7 @@ Inline sandbox rendering a functional, interactive UI prototype (e.g., simulatin
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/specos.git
+git clone https://github.com/stardust2443/specos.git
 
 # Install dependencies
 npm install
