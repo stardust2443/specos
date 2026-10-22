@@ -180,7 +180,7 @@ ${currentSpec.linearIssues.map(li => `- [P${li.priority}] ${li.title} (${li.area
   };
 
   return (
-    <div className="min-h-screen bg-apple-bg text-apple-text flex flex-col font-sans selection:bg-apple-accent/30 selection:text-white relative overflow-x-hidden">
+    <div className="min-h-screen bg-apple-bg text-apple-text flex flex-col font-sans selection:bg-apple-accent selection:text-white relative overflow-x-hidden">
       {/* Ambient Radial Mesh Gradient */}
       <div className={`fixed top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] blur-3xl pointer-events-none -z-10 transition-colors duration-500 ${
         theme === 'dark'

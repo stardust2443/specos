@@ -76,14 +76,14 @@ export const CommandPalette = ({
       id: 'export-md',
       title: 'Copy Complete PRD as Markdown',
       category: 'Actions',
-      icon: <FileText className="w-4 h-4 text-white" />,
+      icon: <FileText className="w-4 h-4 text-apple-accent" />,
       run: () => { onExportMarkdown(); onClose(); }
     },
     {
       id: 'export-linear',
       title: 'Export Issues to Linear JSON',
       category: 'Actions',
-      icon: <Layers className="w-4 h-4 text-white" />,
+      icon: <Layers className="w-4 h-4 text-apple-purple" />,
       run: () => { onExportLinear(); onClose(); }
     },
     ...presets.map(p => ({

@@ -65,9 +65,9 @@ export const PromptBar = ({
         </div>
       </form>
 
-      {/* Preset Pill Carousel with Spring Physics */}
-      <div className="flex flex-wrap items-center gap-2 pt-1">
-        <div className="flex items-center space-x-1.5 text-[11px] font-mono text-apple-textTertiary mr-1">
+      {/* Preset Pill Carousel (Single-Line Compact Row) */}
+      <div className="flex items-center gap-2 pt-1 overflow-x-auto no-scrollbar flex-nowrap pb-0.5">
+        <div className="flex items-center space-x-1.5 text-[11px] font-mono text-apple-textTertiary mr-1 flex-shrink-0">
           <Command className="w-3 h-3" />
           <span>Curated Presets:</span>
         </div>
@@ -80,7 +80,7 @@ export const PromptBar = ({
               onClick={() => onSelectPreset(preset)}
               whileHover={{ y: -1, scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className={`relative px-3.5 py-1.5 rounded-xl text-xs font-medium transition-all flex items-center space-x-2 ${
+              className={`relative px-3 py-1.5 rounded-xl text-xs font-medium transition-all flex items-center space-x-2 flex-shrink-0 whitespace-nowrap ${
                 isSelected
                   ? 'text-apple-accent font-semibold border border-apple-accent/50 bg-apple-accent/10 shadow-apple-sm'
                   : 'text-apple-textSecondary hover:text-apple-text glass-pill hover:border-apple-borderHighlight'
@@ -94,7 +94,7 @@ export const PromptBar = ({
                 />
               )}
               <span className="relative z-10">{preset.name}</span>
-              <span className={`relative z-10 text-[10px] font-mono px-1.5 py-0.2 rounded-full ${
+              <span className={`relative z-10 text-[10px] font-mono px-1.5 py-0.5 rounded-md ${
                 isSelected ? 'bg-apple-accent/20 text-apple-accent font-semibold' : 'bg-apple-elevated text-apple-textTertiary border border-apple-border'
               }`}>
                 {preset.tag}

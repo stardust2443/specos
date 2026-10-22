@@ -63,6 +63,16 @@
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     transition: background-color 200ms ease, color 200ms ease;
   }
+
+  ::selection {
+    background-color: #0071E3;
+    color: #FFFFFF !important;
+  }
+
+  .dark ::selection {
+    background-color: #0A84FF;
+    color: #FFFFFF !important;
+  }
 }
 
 /* Apple-style Translucent Materials */

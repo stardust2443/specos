@@ -71,14 +71,14 @@ export const Header = ({
                 key={item.id}
                 onClick={() => onChangeTab(item.id)}
                 className={`relative px-3 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center space-x-1.5 ${
-                  isActive ? 'text-apple-text font-semibold' : 'text-apple-textSecondary hover:text-apple-text'
+                  isActive ? 'text-apple-accent dark:text-apple-text font-semibold' : 'text-apple-textSecondary hover:text-apple-text'
                 } apple-pressable`}
               >
                 {isActive && (
                   <motion.div
                     layoutId="activeTabPill"
                     transition={{ type: 'spring', damping: 28, stiffness: 170 }}
-                    className="absolute inset-0 bg-apple-surface rounded-lg border border-apple-border shadow-apple-sm"
+                    className="absolute inset-0 bg-white dark:bg-apple-surface rounded-lg border border-black/10 dark:border-white/10 shadow-sm"
                   />
                 )}
                 <Icon className="w-3.5 h-3.5 relative z-10" />

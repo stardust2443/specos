@@ -3,8 +3,8 @@ import { DemoPreset } from '../types/spec';
 export const DEMO_PRESETS: DemoPreset[] = [
   {
     id: 'stripe-apple-pay',
-    name: 'Stripe 1-Click Guest Checkout',
-    tag: 'Fintech / Conversion',
+    name: 'Stripe 1-Click',
+    tag: 'Fintech',
     prompt: 'Add one-click Apple Pay & Google Pay checkout for guest users on mobile web with zero mandatory account creation.',
     spec: {
       id: 'spec-stripe-apple-pay',
@@ -160,8 +160,8 @@ export const DEMO_PRESETS: DemoPreset[] = [
   },
   {
     id: 'linear-multi-workspace',
-    name: 'Linear Multi-Workspace Switcher',
-    tag: 'Productivity / Ergonomics',
+    name: 'Linear Switcher',
+    tag: 'DevTools',
     prompt: 'Implement zero-friction instant workspace switching with isolated local SQLite caches and unified notification badge counters.',
     spec: {
       id: 'spec-linear-workspace',
@@ -263,8 +263,8 @@ export const DEMO_PRESETS: DemoPreset[] = [
   },
   {
     id: 'slack-canvas-block',
-    name: 'Slack Canvas Collaborative Block',
-    tag: 'Collaboration / Real-Time',
+    name: 'Slack Canvas',
+    tag: 'Real-Time',
     prompt: 'Design an embeddable living doc block inside channel threads that syncs checklist items and comments directly to engineering issues.',
     spec: {
       id: 'spec-slack-canvas',

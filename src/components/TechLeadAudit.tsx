@@ -80,13 +80,13 @@ export const TechLeadAudit = ({ edgeCases }: Props) => {
                 key={sev}
                 onClick={() => setFilterSeverity(sev)}
                 className={`relative px-3 py-1 rounded-lg text-xs font-mono transition-colors apple-pressable ${
-                  isActive ? 'text-apple-text font-semibold' : 'text-apple-textTertiary hover:text-apple-textSecondary'
+                  isActive ? 'text-apple-accent dark:text-apple-text font-semibold' : 'text-apple-textTertiary hover:text-apple-textSecondary'
                 }`}
               >
                 {isActive && (
                   <motion.div
                     layoutId="activeAuditFilterPill"
-                    className="absolute inset-0 rounded-lg bg-apple-surface shadow-apple-sm border border-apple-border"
+                    className="absolute inset-0 rounded-lg bg-white dark:bg-apple-surface shadow-apple-sm border border-apple-accent/30 dark:border-apple-border"
                     transition={{ type: 'spring', damping: 26, stiffness: 160 }}
                   />
                 )}
