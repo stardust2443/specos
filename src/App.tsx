@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import { MonitorPlay, ShieldAlert, Layers } from 'lucide-react';
 import { Header, ActiveTab } from './components/Header';
 import { PromptBar } from './components/PromptBar';
 import { PrdViewer } from './components/PrdViewer';
@@ -213,31 +214,111 @@ ${currentSpec.linearIssues.map(li => `- [P${li.priority}] ${li.title} (${li.area
           isGenerating={isGenerating}
         />
 
-        {/* Dynamic Tab Views with Spring Presence */}
+        {/* Dynamic Tab Views with Luxurious Spring Presence */}
         <AnimatePresence mode="wait">
           {activeTab === 'prd' && (
             <motion.div
               key="prd-view"
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ type: 'spring', damping: 25, stiffness: 350 }}
-              className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start"
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ type: 'spring', damping: 28, stiffness: 150, mass: 0.9 }}
+              className="max-w-4xl mx-auto space-y-10"
             >
-              {/* Left Column (7 cols): Living PRD + Live Sandbox */}
-              <div className="lg:col-span-7 space-y-6">
-                <PrdViewer spec={currentSpec} />
-                <MockupContainer mockupState={currentSpec.mockupState} />
-              </div>
+              <PrdViewer spec={currentSpec} />
 
-              {/* Right Column (5 cols): Tech Lead Audit & Linear Sprints */}
-              <div className="lg:col-span-5 space-y-6 sticky top-20">
-                <TechLeadAudit edgeCases={currentSpec.edgeCases} />
-                <LinearDrawer
-                  issues={currentSpec.linearIssues}
-                  onCopyLinearJson={copyLinearJson}
-                  copiedLinear={copiedLinear}
-                />
+              {/* Companion Pipeline Discovery Banner */}
+              <div className="pt-4 border-t border-apple-border space-y-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="text-xs font-mono uppercase tracking-wider text-apple-accent font-semibold">
+                      SpecOS Multi-Agent Pipeline Outputs
+                    </h3>
+                    <p className="text-xs text-apple-textTertiary mt-0.5">
+                      Deterministic companion artifacts synthesized concurrently from this living specification
+                    </p>
+                  </div>
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-apple-elevated text-apple-textSecondary border border-apple-border">
+                    3 Synchronized Artifacts
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {/* Card 1: Interactive Sandbox */}
+                  <motion.button
+                    whileHover={{ y: -3, transition: { duration: 0.2 } }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => setActiveTab('sandbox')}
+                    className="p-5 rounded-2xl bg-apple-elevated/40 hover:bg-apple-elevated border border-apple-border hover:border-apple-borderHighlight text-left transition-all shadow-apple-sm group space-y-3 apple-pressable"
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="w-9 h-9 rounded-xl bg-apple-accent/10 border border-apple-accent/20 flex items-center justify-center text-apple-accent">
+                        <MonitorPlay className="w-4 h-4" />
+                      </div>
+                      <span className="text-[10px] font-mono text-apple-accent font-semibold group-hover:translate-x-0.5 transition-transform">
+                        Explore →
+                      </span>
+                    </div>
+                    <div>
+                      <div className="text-sm font-semibold text-apple-text group-hover:text-apple-accent transition-colors">
+                        Interactive Sandbox
+                      </div>
+                      <div className="text-xs text-apple-textSecondary mt-0.5">
+                        Live Apple-grade prototype simulating 0ms local state transitions
+                      </div>
+                    </div>
+                  </motion.button>
+
+                  {/* Card 2: Tech Lead Audit */}
+                  <motion.button
+                    whileHover={{ y: -3, transition: { duration: 0.2 } }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => setActiveTab('audit')}
+                    className="p-5 rounded-2xl bg-apple-elevated/40 hover:bg-apple-elevated border border-apple-border hover:border-apple-borderHighlight text-left transition-all shadow-apple-sm group space-y-3 apple-pressable"
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="w-9 h-9 rounded-xl bg-apple-amber/10 border border-apple-amber/20 flex items-center justify-center text-apple-amber">
+                        <ShieldAlert className="w-4 h-4" />
+                      </div>
+                      <span className="text-[10px] font-mono text-apple-amber font-semibold group-hover:translate-x-0.5 transition-transform">
+                        {currentSpec.edgeCases.length} Risks →
+                      </span>
+                    </div>
+                    <div>
+                      <div className="text-sm font-semibold text-apple-text group-hover:text-apple-amber transition-colors">
+                        Tech Lead Audit
+                      </div>
+                      <div className="text-xs text-apple-textSecondary mt-0.5">
+                        Adversarial failure modes, race conditions &amp; distributed defenses
+                      </div>
+                    </div>
+                  </motion.button>
+
+                  {/* Card 3: Linear Sprints */}
+                  <motion.button
+                    whileHover={{ y: -3, transition: { duration: 0.2 } }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => setActiveTab('linear')}
+                    className="p-5 rounded-2xl bg-apple-elevated/40 hover:bg-apple-elevated border border-apple-border hover:border-apple-borderHighlight text-left transition-all shadow-apple-sm group space-y-3 apple-pressable"
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="w-9 h-9 rounded-xl bg-apple-purple/10 border border-apple-purple/20 flex items-center justify-center text-apple-purple">
+                        <Layers className="w-4 h-4" />
+                      </div>
+                      <span className="text-[10px] font-mono text-apple-purple font-semibold group-hover:translate-x-0.5 transition-transform">
+                        {currentSpec.linearIssues.length} Tickets →
+                      </span>
+                    </div>
+                    <div>
+                      <div className="text-sm font-semibold text-apple-text group-hover:text-apple-purple transition-colors">
+                        Linear Sprints
+                      </div>
+                      <div className="text-xs text-apple-textSecondary mt-0.5">
+                        P1-P4 Fibonacci tickets ready for 1-click JSON/CSV sprint import
+                      </div>
+                    </div>
+                  </motion.button>
+                </div>
               </div>
             </motion.div>
           )}
@@ -245,10 +326,10 @@ ${currentSpec.linearIssues.map(li => `- [P${li.priority}] ${li.title} (${li.area
           {activeTab === 'audit' && (
             <motion.div
               key="audit-view"
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ type: 'spring', damping: 25, stiffness: 350 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ type: 'spring', damping: 28, stiffness: 150, mass: 0.9 }}
               className="max-w-4xl mx-auto space-y-6"
             >
               <TechLeadAudit edgeCases={currentSpec.edgeCases} />
@@ -258,10 +339,10 @@ ${currentSpec.linearIssues.map(li => `- [P${li.priority}] ${li.title} (${li.area
           {activeTab === 'linear' && (
             <motion.div
               key="linear-view"
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ type: 'spring', damping: 25, stiffness: 350 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ type: 'spring', damping: 28, stiffness: 150, mass: 0.9 }}
               className="max-w-4xl mx-auto space-y-6"
             >
               <LinearDrawer
@@ -275,11 +356,11 @@ ${currentSpec.linearIssues.map(li => `- [P${li.priority}] ${li.title} (${li.area
           {activeTab === 'sandbox' && (
             <motion.div
               key="sandbox-view"
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ type: 'spring', damping: 25, stiffness: 350 }}
-              className="max-w-xl mx-auto space-y-6 pt-4"
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ type: 'spring', damping: 28, stiffness: 150, mass: 0.9 }}
+              className="max-w-2xl mx-auto space-y-6 pt-2"
             >
               <MockupContainer mockupState={currentSpec.mockupState} />
             </motion.div>

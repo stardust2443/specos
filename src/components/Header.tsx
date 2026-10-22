@@ -35,19 +35,23 @@ export const Header = ({
 
   const navItems: { id: ActiveTab; label: string; icon: any; count?: number }[] = [
     { id: 'prd', label: 'Living PRD', icon: FileText },
+    { id: 'sandbox', label: 'Interactive Sandbox', icon: MonitorPlay },
     { id: 'audit', label: 'Tech Lead Audit', icon: ShieldAlert, count: edgeCasesCount },
     { id: 'linear', label: 'Linear Sprints', icon: Layers, count: linearIssuesCount },
-    { id: 'sandbox', label: 'Live Sandbox', icon: MonitorPlay },
   ];
 
   return (
-    <header className="sticky top-3 z-40 max-w-7xl mx-auto px-4 sm:px-6 w-full">
-      <div className="glass-panel rounded-2xl px-3 sm:px-4 h-14 flex items-center justify-between shadow-lg">
+    <header className="sticky top-4 z-40 max-w-5xl mx-auto px-4 sm:px-6 w-full">
+      <div className="glass-panel rounded-2xl px-4 h-14 flex items-center justify-between shadow-lg">
         {/* Brand & Badge */}
         <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 rounded-xl bg-apple-accent/15 border border-apple-accent/30 shadow-apple-sm flex items-center justify-center">
+          <motion.div 
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="w-8 h-8 rounded-xl bg-apple-accent/15 border border-apple-accent/30 shadow-apple-sm flex items-center justify-center cursor-pointer"
+          >
             <Layers className="w-4 h-4 text-apple-accent" />
-          </div>
+          </motion.div>
 
           <div className="flex items-center space-x-2">
             <span className="font-semibold text-apple-text tracking-tight text-sm">SpecOS</span>
@@ -66,14 +70,14 @@ export const Header = ({
               <button
                 key={item.id}
                 onClick={() => onChangeTab(item.id)}
-                className={`relative px-2.5 sm:px-3 py-1 rounded-lg text-xs font-medium transition-colors flex items-center space-x-1.5 ${
+                className={`relative px-3 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center space-x-1.5 ${
                   isActive ? 'text-apple-text font-semibold' : 'text-apple-textSecondary hover:text-apple-text'
                 } apple-pressable`}
               >
                 {isActive && (
                   <motion.div
                     layoutId="activeTabPill"
-                    transition={{ type: 'spring', damping: 25, stiffness: 350 }}
+                    transition={{ type: 'spring', damping: 28, stiffness: 170 }}
                     className="absolute inset-0 bg-apple-surface rounded-lg border border-apple-border shadow-apple-sm"
                   />
                 )}
@@ -93,17 +97,24 @@ export const Header = ({
 
         {/* Right Action Island */}
         <div className="flex items-center space-x-2">
-          {/* Theme Toggle Button */}
+          {/* Theme Toggle Button with Micro-Rotation */}
           <button
             onClick={onToggleTheme}
-            className="p-2 rounded-xl bg-apple-elevated hover:bg-apple-hover border border-apple-border text-apple-textSecondary hover:text-apple-text transition-all apple-pressable shadow-sm"
+            className="w-8 h-8 rounded-xl bg-apple-elevated hover:bg-apple-hover border border-apple-border text-apple-textSecondary hover:text-apple-text flex items-center justify-center transition-all apple-pressable shadow-sm overflow-hidden"
             title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} mode`}
           >
-            {theme === 'dark' ? (
-              <Sun className="w-3.5 h-3.5 text-apple-amber" />
-            ) : (
-              <Moon className="w-3.5 h-3.5 text-apple-accent" />
-            )}
+            <motion.div
+              key={theme}
+              initial={{ rotate: -90, scale: 0.7, opacity: 0 }}
+              animate={{ rotate: 0, scale: 1, opacity: 1 }}
+              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            >
+              {theme === 'dark' ? (
+                <Sun className="w-3.5 h-3.5 text-apple-amber" />
+              ) : (
+                <Moon className="w-3.5 h-3.5 text-apple-accent" />
+              )}
+            </motion.div>
           </button>
 
           {/* Quick Search Cmd+K Trigger */}
@@ -124,7 +135,9 @@ export const Header = ({
             >
               <Sparkles className="w-3.5 h-3.5" />
               <span>Export</span>
-              <ChevronDown className="w-3 h-3 opacity-80" />
+              <motion.div animate={{ rotate: showExportMenu ? 180 : 0 }} transition={{ duration: 0.2 }}>
+                <ChevronDown className="w-3 h-3 opacity-80" />
+              </motion.div>
             </button>
 
             {/* Popover */}

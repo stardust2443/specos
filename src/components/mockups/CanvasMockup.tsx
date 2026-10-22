@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { motion } from 'motion/react';
 import { MessageSquare, CheckSquare, Square, RefreshCw, ExternalLink, Users } from 'lucide-react';
 
 interface Props {
@@ -49,14 +50,22 @@ export const CanvasMockup = ({ config }: Props) => {
         </div>
 
         {items.map(item => (
-          <div
+          <motion.div
             key={item.id}
+            whileHover={{ y: -1 }}
+            whileTap={{ scale: 0.98 }}
             onClick={() => toggleItem(item.id)}
-            className="flex items-center justify-between p-3 rounded-2xl bg-apple-elevated/40 border border-apple-border hover:border-apple-borderHighlight cursor-pointer transition-all apple-pressable"
+            className="flex items-center justify-between p-3.5 rounded-2xl bg-apple-elevated/40 border border-apple-border hover:border-apple-borderHighlight cursor-pointer transition-all apple-pressable"
           >
             <div className="flex items-center space-x-3">
               {item.done ? (
-                <CheckSquare className="w-4 h-4 text-apple-emerald flex-shrink-0" />
+                <motion.div
+                  initial={{ scale: 0.6 }}
+                  animate={{ scale: 1 }}
+                  transition={{ type: 'spring', damping: 18, stiffness: 220 }}
+                >
+                  <CheckSquare className="w-4 h-4 text-apple-emerald flex-shrink-0" />
+                </motion.div>
               ) : (
                 <Square className="w-4 h-4 text-apple-textTertiary flex-shrink-0" />
               )}
@@ -65,11 +74,11 @@ export const CanvasMockup = ({ config }: Props) => {
               </span>
             </div>
 
-            <div className="flex items-center space-x-1 font-mono text-[10px] bg-apple-elevated text-apple-accent px-2 py-0.5 rounded-md border border-apple-border">
+            <div className="flex items-center space-x-1 font-mono text-[10px] bg-apple-surface text-apple-accent px-2 py-0.5 rounded-md border border-apple-border">
               <span>{item.ticket}</span>
               <ExternalLink className="w-2.5 h-2.5" />
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
 

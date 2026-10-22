@@ -46,10 +46,12 @@ export const SwitcherMockup = ({ config }: Props) => {
         {workspaces.map((ws: any, idx: number) => {
           const isActive = ws.id === activeId;
           return (
-            <button
+            <motion.button
               key={ws.id}
+              whileHover={{ x: 2 }}
+              whileTap={{ scale: 0.98 }}
               onClick={() => handleSwitch(ws.id)}
-              className={`relative w-full flex items-center justify-between p-3 rounded-2xl border text-left transition-all apple-pressable ${
+              className={`relative w-full flex items-center justify-between p-3.5 rounded-2xl border text-left transition-all apple-pressable ${
                 isActive
                   ? 'bg-apple-accent/15 border-apple-accent text-apple-accent font-semibold shadow-apple-sm'
                   : 'bg-apple-elevated/40 border-apple-border text-apple-textSecondary hover:text-apple-text hover:border-apple-borderHighlight'
@@ -59,7 +61,7 @@ export const SwitcherMockup = ({ config }: Props) => {
                 <motion.div
                   layoutId="activeWorkspaceGlow"
                   className="absolute inset-0 rounded-2xl bg-apple-accent/10 pointer-events-none"
-                  transition={{ type: 'spring', damping: 25, stiffness: 350 }}
+                  transition={{ type: 'spring', damping: 26, stiffness: 160 }}
                 />
               )}
 
@@ -82,9 +84,17 @@ export const SwitcherMockup = ({ config }: Props) => {
                     <span>{ws.unread}</span>
                   </span>
                 )}
-                {isActive && <Check className="w-4 h-4 text-apple-accent" />}
+                {isActive && (
+                  <motion.div
+                    initial={{ scale: 0.5, rotate: -20 }}
+                    animate={{ scale: 1, rotate: 0 }}
+                    transition={{ type: 'spring', damping: 18, stiffness: 220 }}
+                  >
+                    <Check className="w-4 h-4 text-apple-accent" />
+                  </motion.div>
+                )}
               </div>
-            </button>
+            </motion.button>
           );
         })}
       </div>

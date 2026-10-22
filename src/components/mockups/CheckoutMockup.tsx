@@ -67,13 +67,15 @@ export const CheckoutMockup = ({ config }: Props) => {
               </div>
 
               {/* The Apple Pay Button */}
-              <button
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.97 }}
                 onClick={handlePay}
-                className="w-full py-3.5 px-4 bg-black text-white hover:bg-neutral-800 dark:bg-white dark:text-black dark:hover:bg-neutral-100 active:scale-[0.98] font-semibold rounded-2xl flex items-center justify-center space-x-2 transition-all shadow-md apple-pressable"
+                className="w-full py-3.5 px-4 bg-black text-white hover:bg-neutral-800 dark:bg-white dark:text-black dark:hover:bg-neutral-100 font-semibold rounded-2xl flex items-center justify-center space-x-2 transition-all shadow-md apple-pressable"
               >
                 <Apple className="w-4 h-4 fill-current" />
                 <span className="text-sm font-medium">Pay with Apple Pay</span>
-              </button>
+              </motion.button>
 
               <div className="flex items-center justify-center space-x-1.5 text-[11px] text-apple-textTertiary">
                 <ShieldCheck className="w-3.5 h-3.5 text-apple-emerald" />
@@ -88,7 +90,7 @@ export const CheckoutMockup = ({ config }: Props) => {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ type: 'spring', damping: 25, stiffness: 350 }}
+              transition={{ type: 'spring', damping: 28, stiffness: 150, mass: 0.9 }}
               className="py-6 text-center space-y-3"
             >
               <div className="relative w-12 h-12 mx-auto flex items-center justify-center">
@@ -115,12 +117,17 @@ export const CheckoutMockup = ({ config }: Props) => {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ type: 'spring', damping: 25, stiffness: 350 }}
+              transition={{ type: 'spring', damping: 28, stiffness: 150, mass: 0.9 }}
               className="py-4 text-center space-y-3"
             >
-              <div className="w-12 h-12 rounded-full bg-apple-emerald/15 border border-apple-emerald/30 flex items-center justify-center mx-auto text-apple-emerald shadow-apple-glow">
+              <motion.div
+                initial={{ scale: 0.5, rotate: -20 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ type: 'spring', damping: 20, stiffness: 200 }}
+                className="w-12 h-12 rounded-full bg-apple-emerald/15 border border-apple-emerald/30 flex items-center justify-center mx-auto text-apple-emerald shadow-apple-glow"
+              >
                 <CheckCircle2 className="w-7 h-7" />
-              </div>
+              </motion.div>
 
               <div>
                 <div className="text-base font-semibold text-apple-text">Order Confirmed #ORD-98214</div>
@@ -129,13 +136,15 @@ export const CheckoutMockup = ({ config }: Props) => {
                 </p>
               </div>
 
-              <button
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 onClick={handleReset}
                 className="mt-3 text-xs text-apple-accent hover:underline flex items-center justify-center mx-auto space-x-1 apple-pressable font-medium"
               >
                 <span>Reset Simulation</span>
                 <ArrowRight className="w-3 h-3" />
-              </button>
+              </motion.button>
             </motion.div>
           )}
         </AnimatePresence>

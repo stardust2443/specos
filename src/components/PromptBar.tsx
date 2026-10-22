@@ -44,14 +44,24 @@ export const PromptBar = ({
         />
 
         <div className="absolute right-2 flex items-center space-x-1.5">
-          <button
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
             type="submit"
             disabled={!prompt.trim() || isGenerating}
             className="px-4 py-2 bg-apple-accent hover:bg-apple-accentHover disabled:opacity-30 disabled:pointer-events-none text-white text-xs font-semibold rounded-xl flex items-center space-x-1.5 transition-all shadow-apple-sm apple-pressable"
           >
+            {isGenerating ? (
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ repeat: Infinity, duration: 1, ease: 'linear' }}
+              >
+                <Sparkles className="w-3.5 h-3.5" />
+              </motion.div>
+            ) : null}
             <span>{isGenerating ? 'Synthesizing...' : 'Generate Spec'}</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </button>
+            {!isGenerating && <ArrowRight className="w-3.5 h-3.5" />}
+          </motion.button>
         </div>
       </form>
 
@@ -65,10 +75,12 @@ export const PromptBar = ({
         {presets.map((preset) => {
           const isSelected = preset.id === activePresetId;
           return (
-            <button
+            <motion.button
               key={preset.id}
               onClick={() => onSelectPreset(preset)}
-              className={`relative px-3 py-1.5 rounded-xl text-xs font-medium transition-all flex items-center space-x-2 apple-pressable ${
+              whileHover={{ y: -1, scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className={`relative px-3.5 py-1.5 rounded-xl text-xs font-medium transition-all flex items-center space-x-2 ${
                 isSelected
                   ? 'text-apple-accent font-semibold border border-apple-accent/50 bg-apple-accent/10 shadow-apple-sm'
                   : 'text-apple-textSecondary hover:text-apple-text glass-pill hover:border-apple-borderHighlight'
@@ -78,7 +90,7 @@ export const PromptBar = ({
                 <motion.div
                   layoutId="activePresetGlow"
                   className="absolute inset-0 rounded-xl bg-apple-accent/10 border border-apple-accent/30 pointer-events-none"
-                  transition={{ type: 'spring', damping: 25, stiffness: 350 }}
+                  transition={{ type: 'spring', damping: 28, stiffness: 180 }}
                 />
               )}
               <span className="relative z-10">{preset.name}</span>
@@ -87,7 +99,7 @@ export const PromptBar = ({
               }`}>
                 {preset.tag}
               </span>
-            </button>
+            </motion.button>
           );
         })}
       </div>
