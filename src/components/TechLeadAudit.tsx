@@ -52,9 +52,9 @@ export const TechLeadAudit = ({ edgeCases }: Props) => {
   return (
     <div className="glass-panel rounded-2xl p-6 space-y-5">
       {/* Header */}
-      <div className="flex items-center justify-between pb-4 border-b border-white/[0.08]">
+      <div className="flex items-center justify-between pb-4 border-b border-apple-border">
         <div className="flex items-center space-x-2.5">
-          <div className="w-8 h-8 rounded-xl bg-apple-red/10 border border-apple-red/20 flex items-center justify-center text-apple-red">
+          <div className="w-8 h-8 rounded-xl bg-apple-amber/10 border border-apple-amber/20 flex items-center justify-center text-apple-amber">
             <ShieldAlert className="w-4 h-4" />
           </div>
           <div>
@@ -64,14 +64,14 @@ export const TechLeadAudit = ({ edgeCases }: Props) => {
         </div>
 
         {/* Severity Filter Pills */}
-        <div className="flex items-center space-x-1 bg-black/40 p-1 rounded-xl border border-white/[0.06]">
+        <div className="flex items-center space-x-1 bg-apple-elevated/70 p-1 rounded-xl border border-apple-border">
           {(['All', 'High', 'Medium', 'Low'] as const).map((sev) => (
             <button
               key={sev}
               onClick={() => setFilterSeverity(sev)}
               className={`px-2 py-0.5 rounded-lg text-[10px] font-mono transition-all apple-pressable ${
                 filterSeverity === sev
-                  ? 'bg-white/15 text-white font-semibold'
+                  ? 'bg-apple-surface text-apple-text font-semibold shadow-apple-sm'
                   : 'text-apple-textTertiary hover:text-apple-textSecondary'
               }`}
             >
@@ -90,13 +90,13 @@ export const TechLeadAudit = ({ edgeCases }: Props) => {
               key={ec.id}
               className={`p-4 rounded-xl border transition-all space-y-3 ${
                 isMitigated
-                  ? 'bg-white/[0.01] border-white/[0.04] opacity-60'
-                  : 'bg-white/[0.02] border-white/[0.08] hover:border-white/[0.14]'
+                  ? 'bg-apple-elevated/20 border-apple-border opacity-60'
+                  : 'bg-apple-elevated/40 border-apple-border hover:border-apple-borderHighlight'
               }`}
             >
               <div className="flex items-start justify-between gap-2">
                 <div className="flex items-center space-x-2">
-                  <div className="p-1 rounded-md bg-white/[0.04]">
+                  <div className="p-1.5 rounded-lg bg-apple-elevated border border-apple-border">
                     {getCategoryIcon(ec.category)}
                   </div>
                   <span className={`text-xs font-semibold ${isMitigated ? 'line-through text-apple-textSecondary' : 'text-apple-text'}`}>
@@ -111,10 +111,10 @@ export const TechLeadAudit = ({ edgeCases }: Props) => {
                   
                   <button
                     onClick={() => toggleMitigated(ec.id)}
-                    className={`p-1 rounded-md border transition-all apple-pressable ${
+                    className={`p-1.5 rounded-lg border transition-all apple-pressable ${
                       isMitigated
                         ? 'bg-apple-emerald/20 border-apple-emerald text-apple-emerald'
-                        : 'bg-white/[0.04] border-white/10 text-apple-textTertiary hover:text-white'
+                        : 'bg-apple-elevated border-apple-border text-apple-textTertiary hover:text-apple-text'
                     }`}
                     title={isMitigated ? 'Mark as Unmitigated' : 'Mark as Mitigated'}
                   >
@@ -124,17 +124,17 @@ export const TechLeadAudit = ({ edgeCases }: Props) => {
               </div>
 
               {/* Scenario */}
-              <div className="text-xs text-apple-textSecondary bg-black/40 p-3 rounded-lg border border-white/[0.04] space-y-1">
-                <span className="text-[10px] uppercase font-mono text-apple-red font-semibold block tracking-wider">
-                  Failure Vector
+              <div className="text-xs text-apple-textSecondary bg-rose-500/5 p-3 rounded-lg border border-rose-500/15 space-y-1">
+                <span className="text-[10px] uppercase font-mono text-rose-600 dark:text-rose-400 font-semibold block tracking-wider">
+                  Potential Production Risk
                 </span>
                 <p className="leading-relaxed">{ec.scenario}</p>
               </div>
 
               {/* Architectural Mitigation */}
-              <div className="text-xs text-emerald-300 bg-emerald-950/20 p-3 rounded-lg border border-emerald-500/20 space-y-1">
-                <span className="text-[10px] uppercase font-mono text-emerald-400 font-semibold block tracking-wider">
-                  Prescribed Architectural Mitigation
+              <div className="text-xs text-emerald-800 dark:text-emerald-200 bg-emerald-500/5 p-3 rounded-lg border border-emerald-500/15 space-y-1">
+                <span className="text-[10px] uppercase font-mono text-emerald-600 dark:text-emerald-400 font-semibold block tracking-wider">
+                  Prescribed Architectural Defense
                 </span>
                 <p className="leading-relaxed font-sans">{ec.mitigation}</p>
               </div>

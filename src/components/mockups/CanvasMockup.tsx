@@ -21,11 +21,11 @@ export const CanvasMockup = ({ config }: Props) => {
   };
 
   return (
-    <div className="max-w-sm mx-auto glass-panel rounded-3xl p-6 shadow-2xl border border-white/10">
+    <div className="max-w-sm mx-auto glass-panel rounded-3xl p-6 shadow-2xl border border-apple-border">
       {/* Top Handle */}
-      <div className="w-10 h-1 bg-white/20 rounded-full mx-auto mb-5" />
+      <div className="w-10 h-1 bg-apple-borderHighlight rounded-full mx-auto mb-5" />
 
-      <div className="flex items-center justify-between pb-3.5 border-b border-white/[0.08]">
+      <div className="flex items-center justify-between pb-3.5 border-b border-apple-border">
         <div className="flex items-center space-x-2">
           <MessageSquare className="w-4 h-4 text-apple-emerald" />
           <h4 className="text-xs font-mono font-semibold text-apple-text">
@@ -33,7 +33,7 @@ export const CanvasMockup = ({ config }: Props) => {
           </h4>
         </div>
 
-        <div className="flex items-center space-x-1.5 text-[10px] text-emerald-400 font-mono bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
+        <div className="flex items-center space-x-1.5 text-[10px] text-emerald-600 dark:text-emerald-400 font-mono bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20 font-medium">
           <RefreshCw className="w-2.5 h-2.5 animate-spin" />
           <span>Yjs Synced</span>
         </div>
@@ -52,7 +52,7 @@ export const CanvasMockup = ({ config }: Props) => {
           <div
             key={item.id}
             onClick={() => toggleItem(item.id)}
-            className="flex items-center justify-between p-3 rounded-2xl bg-white/[0.02] border border-white/[0.06] hover:border-white/[0.14] cursor-pointer transition-all apple-pressable"
+            className="flex items-center justify-between p-3 rounded-2xl bg-apple-elevated/40 border border-apple-border hover:border-apple-borderHighlight cursor-pointer transition-all apple-pressable"
           >
             <div className="flex items-center space-x-3">
               {item.done ? (
@@ -65,7 +65,7 @@ export const CanvasMockup = ({ config }: Props) => {
               </span>
             </div>
 
-            <div className="flex items-center space-x-1 font-mono text-[10px] bg-white/[0.04] text-apple-accent px-2 py-0.5 rounded-md border border-white/[0.06]">
+            <div className="flex items-center space-x-1 font-mono text-[10px] bg-apple-elevated text-apple-accent px-2 py-0.5 rounded-md border border-apple-border">
               <span>{item.ticket}</span>
               <ExternalLink className="w-2.5 h-2.5" />
             </div>
@@ -73,7 +73,7 @@ export const CanvasMockup = ({ config }: Props) => {
         ))}
       </div>
 
-      <div className="pt-3 border-t border-white/[0.06] text-right">
+      <div className="pt-3 border-t border-apple-border text-right">
         <span className="text-[11px] text-apple-textTertiary">Two-way optimistic sync to Linear backlog</span>
       </div>
     </div>

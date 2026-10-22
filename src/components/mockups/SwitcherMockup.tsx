@@ -24,11 +24,11 @@ export const SwitcherMockup = ({ config }: Props) => {
   };
 
   return (
-    <div className="max-w-sm mx-auto glass-panel rounded-3xl p-6 shadow-2xl border border-white/10">
+    <div className="max-w-sm mx-auto glass-panel rounded-3xl p-6 shadow-2xl border border-apple-border">
       {/* Top Handle */}
-      <div className="w-10 h-1 bg-white/20 rounded-full mx-auto mb-5" />
+      <div className="w-10 h-1 bg-apple-borderHighlight rounded-full mx-auto mb-5" />
 
-      <div className="flex items-center justify-between pb-3.5 border-b border-white/[0.08]">
+      <div className="flex items-center justify-between pb-3.5 border-b border-apple-border">
         <div className="flex items-center space-x-2">
           <Layers className="w-4 h-4 text-apple-accent" />
           <h4 className="text-xs font-semibold text-apple-text uppercase tracking-wider font-mono">
@@ -36,7 +36,7 @@ export const SwitcherMockup = ({ config }: Props) => {
           </h4>
         </div>
 
-        <div className="flex items-center space-x-1 text-[10px] font-mono text-apple-textTertiary bg-white/[0.04] px-2 py-0.5 rounded-md border border-white/[0.06]">
+        <div className="flex items-center space-x-1 text-[10px] font-mono text-apple-textTertiary bg-apple-elevated px-2 py-0.5 rounded-md border border-apple-border">
           <Command className="w-2.5 h-2.5" />
           <span>+ [1-3]</span>
         </div>
@@ -51,8 +51,8 @@ export const SwitcherMockup = ({ config }: Props) => {
               onClick={() => handleSwitch(ws.id)}
               className={`relative w-full flex items-center justify-between p-3 rounded-2xl border text-left transition-all apple-pressable ${
                 isActive
-                  ? 'bg-apple-accent/15 border-apple-accent text-white shadow-apple-sm'
-                  : 'bg-white/[0.02] border-white/[0.06] text-apple-textSecondary hover:text-white hover:border-white/[0.14]'
+                  ? 'bg-apple-accent/15 border-apple-accent text-apple-accent font-semibold shadow-apple-sm'
+                  : 'bg-apple-elevated/40 border-apple-border text-apple-textSecondary hover:text-apple-text hover:border-apple-borderHighlight'
               }`}
             >
               {isActive && (

@@ -4,42 +4,91 @@
 
 @layer base {
   :root {
+    color-scheme: light;
+    --apple-bg: #F8F9FA;
+    --apple-surface: #FFFFFF;
+    --apple-elevated: #F1F3F5;
+    --apple-hover: #E9ECEF;
+    --apple-border: rgba(0, 0, 0, 0.08);
+    --apple-border-subtle: rgba(0, 0, 0, 0.04);
+    --apple-border-highlight: rgba(0, 0, 0, 0.12);
+    --apple-text: #1C1E21;
+    --apple-text-secondary: #5F656B;
+    --apple-text-tertiary: #8C9298;
+    --apple-accent: #0071E3;
+    --apple-accent-hover: #0077ED;
+    --apple-glass-bg: rgba(255, 255, 255, 0.9);
+    --apple-glass-border: rgba(0, 0, 0, 0.08);
+    --apple-glass-pill: rgba(0, 0, 0, 0.04);
+    --apple-glass-input: rgba(255, 255, 255, 0.95);
+    --apple-glass-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.02), inset 0 1px 0 0 rgba(255, 255, 255, 1);
+    --apple-subcard-bg: rgba(0, 0, 0, 0.02);
+    --apple-subcard-border: rgba(0, 0, 0, 0.06);
+    --apple-code-bg: rgba(0, 0, 0, 0.03);
+    --apple-code-border: rgba(0, 0, 0, 0.06);
+  }
+
+  .dark {
     color-scheme: dark;
+    --apple-bg: #121316;
+    --apple-surface: #1A1B20;
+    --apple-elevated: #22242B;
+    --apple-hover: #2A2D35;
+    --apple-border: rgba(255, 255, 255, 0.08);
+    --apple-border-subtle: rgba(255, 255, 255, 0.04);
+    --apple-border-highlight: rgba(255, 255, 255, 0.14);
+    --apple-text: #F5F5F7;
+    --apple-text-secondary: #98989D;
+    --apple-text-tertiary: #636366;
+    --apple-accent: #0A84FF;
+    --apple-accent-hover: #0071E3;
+    --apple-glass-bg: rgba(26, 27, 32, 0.82);
+    --apple-glass-border: rgba(255, 255, 255, 0.08);
+    --apple-glass-pill: rgba(255, 255, 255, 0.04);
+    --apple-glass-input: rgba(30, 32, 38, 0.85);
+    --apple-glass-shadow: 0 4px 24px -2px rgba(0, 0, 0, 0.5), inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+    --apple-subcard-bg: rgba(255, 255, 255, 0.02);
+    --apple-subcard-border: rgba(255, 255, 255, 0.06);
+    --apple-code-bg: rgba(0, 0, 0, 0.4);
+    --apple-code-border: rgba(255, 255, 255, 0.04);
   }
   
   body {
-    background-color: #08090A;
-    color: #F5F5F7;
+    background-color: var(--apple-bg);
+    color: var(--apple-text);
     font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", Inter, system-ui, sans-serif;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    transition: background-color 200ms ease, color 200ms ease;
   }
 }
 
-/* Apple-style Translucent Materials & Noise */
+/* Apple-style Translucent Materials */
 .glass-panel {
-  background: rgba(17, 19, 23, 0.75);
+  background: var(--apple-glass-bg);
   backdrop-filter: blur(24px) saturate(180%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 4px 24px -2px rgba(0, 0, 0, 0.5), inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--apple-glass-border);
+  box-shadow: var(--apple-glass-shadow);
+  transition: background-color 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
 }
 
 .glass-pill {
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--apple-glass-pill);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--apple-glass-border);
+  transition: background-color 200ms ease, border-color 200ms ease;
 }
 
 .glass-input {
-  background: rgba(23, 26, 32, 0.85);
+  background: var(--apple-glass-input);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.4), 0 1px 0 rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--apple-glass-border);
+  transition: background-color 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
 }
 
 /* Subtle Interactive Spring Feedback */
@@ -62,10 +111,10 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.12);
+  background: var(--apple-border);
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.22);
+  background: var(--apple-border-highlight);
 }

@@ -79,7 +79,7 @@ export const LinearDrawer = ({ issues, onCopyLinearJson, copiedLinear }: Props) 
   return (
     <div className="glass-panel rounded-2xl p-6 space-y-5">
       {/* Header */}
-      <div className="flex items-center justify-between pb-4 border-b border-white/[0.08]">
+      <div className="flex items-center justify-between pb-4 border-b border-apple-border">
         <div className="flex items-center space-x-2.5">
           <div className="w-8 h-8 rounded-xl bg-apple-purple/10 border border-apple-purple/20 flex items-center justify-center text-apple-purple">
             <Layers className="w-4 h-4" />
@@ -93,7 +93,7 @@ export const LinearDrawer = ({ issues, onCopyLinearJson, copiedLinear }: Props) 
         <div className="flex items-center space-x-1.5">
           <button
             onClick={downloadCsv}
-            className="p-1.5 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] text-apple-textSecondary hover:text-white border border-white/[0.06] transition-all apple-pressable"
+            className="p-1.5 rounded-lg bg-apple-elevated hover:bg-apple-hover text-apple-textSecondary hover:text-apple-text border border-apple-border transition-all apple-pressable"
             title="Download Linear CSV"
           >
             <Download className="w-3.5 h-3.5" />
@@ -101,7 +101,7 @@ export const LinearDrawer = ({ issues, onCopyLinearJson, copiedLinear }: Props) 
           
           <button
             onClick={onCopyLinearJson}
-            className="flex items-center space-x-1.5 px-3 py-1.5 text-xs font-medium rounded-xl bg-apple-purple/15 hover:bg-apple-purple/25 border border-apple-purple/30 text-purple-300 transition-all apple-pressable"
+            className="flex items-center space-x-1.5 px-3 py-1.5 text-xs font-medium rounded-xl bg-apple-purple/15 hover:bg-apple-purple/25 border border-apple-purple/30 text-purple-600 dark:text-purple-300 font-semibold transition-all apple-pressable"
           >
             {copiedLinear ? <Check className="w-3.5 h-3.5 text-apple-emerald" /> : <Sparkles className="w-3.5 h-3.5" />}
             <span>{copiedLinear ? 'Copied' : 'Export JSON'}</span>
@@ -117,8 +117,8 @@ export const LinearDrawer = ({ issues, onCopyLinearJson, copiedLinear }: Props) 
             onClick={() => setActiveArea(area)}
             className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-all apple-pressable ${
               activeArea === area
-                ? 'bg-white/15 text-white shadow-sm'
-                : 'text-apple-textSecondary hover:text-white hover:bg-white/[0.04]'
+                ? 'bg-apple-surface text-apple-text font-semibold shadow-apple-sm border border-apple-border'
+                : 'text-apple-textSecondary hover:text-apple-text hover:bg-apple-elevated'
             }`}
           >
             {area}
@@ -134,13 +134,13 @@ export const LinearDrawer = ({ issues, onCopyLinearJson, copiedLinear }: Props) 
           return (
             <div
               key={issue.id}
-              className="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.06] hover:border-white/[0.12] transition-all space-y-2.5 group"
+              className="p-3.5 rounded-xl bg-apple-elevated/40 border border-apple-border hover:border-apple-borderHighlight transition-all space-y-2.5 group"
             >
               <div className="flex items-start justify-between gap-2.5">
                 <div className="flex items-start space-x-2.5">
                   <button
                     onClick={() => cycleStatus(issue.id)}
-                    className="mt-0.5 p-1 rounded-md hover:bg-white/10 transition-colors apple-pressable"
+                    className="mt-0.5 p-1 rounded-md hover:bg-apple-hover transition-colors apple-pressable"
                     title={`Status: ${status} (click to cycle)`}
                   >
                     {getStatusIcon(status)}
@@ -160,7 +160,7 @@ export const LinearDrawer = ({ issues, onCopyLinearJson, copiedLinear }: Props) 
 
               <div className="flex items-center justify-between pt-1 pl-6">
                 <div className="flex items-center space-x-2">
-                  <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-white/[0.04] text-apple-textSecondary border border-white/[0.06]">
+                  <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-apple-elevated text-apple-textSecondary border border-apple-border">
                     {issue.area}
                   </span>
                   <span className="text-[10px] font-mono text-apple-textTertiary">
@@ -174,7 +174,7 @@ export const LinearDrawer = ({ issues, onCopyLinearJson, copiedLinear }: Props) 
               </div>
 
               {/* Acceptance Criteria Sub-bullets */}
-              <div className="text-[11px] text-apple-textSecondary space-y-1 pl-6 pt-1 border-t border-white/[0.04]">
+              <div className="text-[11px] text-apple-textSecondary space-y-1 pl-6 pt-1 border-t border-apple-border">
                 <ul className="list-disc list-inside space-y-0.5">
                   {issue.acceptanceCriteria.map((ac, idx) => (
                     <li key={idx} className="text-apple-textSecondary">{ac}</li>

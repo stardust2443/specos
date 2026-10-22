@@ -21,12 +21,12 @@ export const CheckoutMockup = ({ config }: Props) => {
   };
 
   return (
-    <div className="relative max-w-sm mx-auto glass-panel rounded-3xl p-6 shadow-2xl border border-white/10 overflow-hidden">
+    <div className="relative max-w-sm mx-auto glass-panel rounded-3xl p-6 shadow-2xl border border-apple-border overflow-hidden">
       {/* Top Sheet Handle (Emil Kowalski / Apple Drawer standard) */}
-      <div className="w-10 h-1 bg-white/20 rounded-full mx-auto mb-5" />
+      <div className="w-10 h-1 bg-apple-borderHighlight rounded-full mx-auto mb-5" />
 
       {/* Header Item Details */}
-      <div className="flex items-center justify-between pb-4 border-b border-white/[0.08]">
+      <div className="flex items-center justify-between pb-4 border-b border-apple-border">
         <div>
           <span className="text-[10px] uppercase font-mono tracking-wider text-apple-accent font-semibold">
             Apple Pay Express
@@ -52,7 +52,7 @@ export const CheckoutMockup = ({ config }: Props) => {
               className="space-y-4"
             >
               {/* Shipping & Card Selector */}
-              <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/[0.06] text-xs space-y-2">
+              <div className="p-3.5 rounded-xl bg-apple-elevated/50 border border-apple-border text-xs space-y-2">
                 <div className="flex items-center justify-between text-apple-textSecondary">
                   <span className="text-[11px]">Card:</span>
                   <div className="flex items-center space-x-1.5 text-apple-text font-medium">
@@ -69,10 +69,10 @@ export const CheckoutMockup = ({ config }: Props) => {
               {/* The Apple Pay Button */}
               <button
                 onClick={handlePay}
-                className="w-full py-3.5 px-4 bg-white hover:bg-neutral-100 active:scale-[0.98] text-black font-semibold rounded-2xl flex items-center justify-center space-x-2 transition-transform shadow-lg shadow-white/5 apple-pressable"
+                className="w-full py-3.5 px-4 bg-black text-white hover:bg-neutral-800 dark:bg-white dark:text-black dark:hover:bg-neutral-100 active:scale-[0.98] font-semibold rounded-2xl flex items-center justify-center space-x-2 transition-all shadow-md apple-pressable"
               >
-                <Apple className="w-4 h-4 fill-black" />
-                <span className="text-sm">Pay with Apple Pay</span>
+                <Apple className="w-4 h-4 fill-current" />
+                <span className="text-sm font-medium">Pay with Apple Pay</span>
               </button>
 
               <div className="flex items-center justify-center space-x-1.5 text-[11px] text-apple-textTertiary">

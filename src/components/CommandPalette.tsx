@@ -136,10 +136,10 @@ export const CommandPalette = ({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.96, y: -10 }}
           transition={{ type: 'spring', damping: 26, stiffness: 320 }}
-          className="relative w-full max-w-xl glass-panel rounded-2xl overflow-hidden shadow-2xl border border-white/10 z-10"
+          className="relative w-full max-w-xl glass-panel rounded-2xl overflow-hidden shadow-2xl border border-apple-border z-10"
         >
           {/* Search Header */}
-          <div className="flex items-center px-4 py-3.5 border-b border-white/[0.08] bg-white/[0.02]">
+          <div className="flex items-center px-4 py-3.5 border-b border-apple-border bg-apple-elevated/40">
             <Search className="w-4 h-4 text-apple-textSecondary mr-3 flex-shrink-0" />
             <input
               type="text"
@@ -151,12 +151,12 @@ export const CommandPalette = ({
               className="w-full bg-transparent text-sm text-apple-text placeholder-apple-textSecondary outline-none font-sans"
             />
             {query && (
-              <button onClick={() => setQuery('')} className="p-1 text-apple-textSecondary hover:text-white">
+              <button onClick={() => setQuery('')} className="p-1 text-apple-textSecondary hover:text-apple-text">
                 <X className="w-3.5 h-3.5" />
               </button>
             )}
             <div className="flex items-center space-x-1 pl-2">
-              <span className="text-[10px] font-mono uppercase bg-white/[0.08] text-apple-textSecondary px-1.5 py-0.5 rounded border border-white/[0.06]">ESC</span>
+              <span className="text-[10px] font-mono uppercase bg-apple-elevated text-apple-textSecondary px-1.5 py-0.5 rounded border border-apple-border">ESC</span>
             </div>
           </div>
 
@@ -172,8 +172,8 @@ export const CommandPalette = ({
                     onMouseEnter={() => setSelectedIndex(idx)}
                     className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-left text-xs transition-colors ${
                       isSelected
-                        ? 'bg-apple-accent text-white shadow-sm'
-                        : 'text-apple-text hover:bg-white/[0.04]'
+                        ? 'bg-apple-accent text-white shadow-sm font-medium'
+                        : 'text-apple-text hover:bg-apple-hover'
                     }`}
                   >
                     <div className="flex items-center space-x-3">
@@ -185,7 +185,7 @@ export const CommandPalette = ({
 
                     <div className="flex items-center space-x-2">
                       <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${
-                        isSelected ? 'bg-white/20 text-white' : 'bg-white/[0.05] text-apple-textTertiary'
+                        isSelected ? 'bg-white/20 text-white' : 'bg-apple-elevated text-apple-textTertiary border border-apple-border'
                       }`}>
                         {item.category}
                       </span>
@@ -197,7 +197,7 @@ export const CommandPalette = ({
             ) : query.trim() ? (
               <button
                 onClick={() => { onSubmitCustomPrompt(query.trim()); onClose(); }}
-                className="w-full flex items-center justify-between p-3 rounded-xl bg-apple-accent/20 border border-apple-accent/40 text-left text-xs text-white"
+                className="w-full flex items-center justify-between p-3 rounded-xl bg-apple-accent/15 border border-apple-accent/30 text-left text-xs text-apple-accent"
               >
                 <div className="flex items-center space-x-2">
                   <Sparkles className="w-4 h-4 text-apple-accent" />
@@ -213,7 +213,7 @@ export const CommandPalette = ({
           </div>
 
           {/* Footer Navigation Hints */}
-          <div className="px-4 py-2 border-t border-white/[0.06] bg-black/30 flex items-center justify-between text-[11px] text-apple-textTertiary font-mono">
+          <div className="px-4 py-2 border-t border-apple-border bg-apple-elevated/40 flex items-center justify-between text-[11px] text-apple-textTertiary font-mono">
             <span>Use ↑↓ to navigate</span>
             <span>Press ↵ to select</span>
           </div>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Header, ActiveTab } from './components/Header';
 import { PromptBar } from './components/PromptBar';
@@ -18,6 +18,27 @@ export function App() {
   const [isCommandOpen, setIsCommandOpen] = useState(false);
   const [copiedMarkdown, setCopiedMarkdown] = useState(false);
   const [copiedLinear, setCopiedLinear] = useState(false);
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('specos_theme');
+      if (saved === 'dark' || saved === 'light') return saved;
+    }
+    return 'light';
+  });
+
+  useEffect(() => {
+    const root = document.documentElement;
+    if (theme === 'dark') {
+      root.classList.add('dark');
+    } else {
+      root.classList.remove('dark');
+    }
+    localStorage.setItem('specos_theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
+  };
 
   const handleSelectPreset = (preset: DemoPreset) => {
     setActivePreset(preset);
@@ -160,7 +181,11 @@ ${currentSpec.linearIssues.map(li => `- [P${li.priority}] ${li.title} (${li.area
   return (
     <div className="min-h-screen bg-apple-bg text-apple-text flex flex-col font-sans selection:bg-apple-accent/30 selection:text-white relative overflow-x-hidden">
       {/* Ambient Radial Mesh Gradient */}
-      <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] bg-gradient-to-b from-apple-accent/10 via-purple-500/5 to-transparent blur-3xl pointer-events-none -z-10" />
+      <div className={`fixed top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] blur-3xl pointer-events-none -z-10 transition-colors duration-500 ${
+        theme === 'dark'
+          ? 'bg-gradient-to-b from-apple-accent/15 via-purple-500/5 to-transparent'
+          : 'bg-gradient-to-b from-blue-500/10 via-amber-400/5 to-transparent'
+      }`} />
 
       {/* Floating Island Header */}
       <Header
@@ -173,6 +198,8 @@ ${currentSpec.linearIssues.map(li => `- [P${li.priority}] ${li.title} (${li.area
         copiedLinear={copiedLinear}
         edgeCasesCount={currentSpec.edgeCases.length}
         linearIssuesCount={currentSpec.linearIssues.length}
+        theme={theme}
+        onToggleTheme={toggleTheme}
       />
 
       {/* Main Container */}
@@ -273,7 +300,7 @@ ${currentSpec.linearIssues.map(li => `- [P${li.priority}] ${li.title} (${li.area
       />
 
       {/* Apple-grade Minimalist Footer */}
-      <footer className="border-t border-white/[0.06] py-6 text-center text-xs text-apple-textTertiary bg-apple-bg/80 backdrop-blur-md">
+      <footer className="border-t border-apple-border py-6 text-center text-xs text-apple-textTertiary bg-apple-surface/60 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex items-center space-x-2">
             <span className="w-1.5 h-1.5 rounded-full bg-apple-emerald animate-pulse" />
