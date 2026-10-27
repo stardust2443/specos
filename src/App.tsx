@@ -8,6 +8,8 @@ import { TechLeadAudit } from './components/TechLeadAudit';
 import { LinearDrawer } from './components/LinearDrawer';
 import { MockupContainer } from './components/MockupContainer';
 import { CommandPalette } from './components/CommandPalette';
+import { ApiKeyModal } from './components/ApiKeyModal';
+import { generateSpecWithGemini, hasApiKey, getStoredApiKey } from './services/gemini';
 import { DEMO_PRESETS } from './data/presets';
 import { SpecDocument, DemoPreset } from './types/spec';
 
@@ -16,6 +18,10 @@ export function App() {
   const [currentSpec, setCurrentSpec] = useState<SpecDocument>(DEMO_PRESETS[0].spec);
   const [activeTab, setActiveTab] = useState<ActiveTab>('prd');
   const [isGenerating, setIsGenerating] = useState(false);
+  const [synthesisStatus, setSynthesisStatus] = useState('');
+  const [apiError, setApiError] = useState<string | null>(null);
+  const [isApiKeyModalOpen, setIsApiKeyModalOpen] = useState(false);
+  const [hasKey, setHasKey] = useState<boolean>(() => hasApiKey());
   const [isCommandOpen, setIsCommandOpen] = useState(false);
   const [copiedMarkdown, setCopiedMarkdown] = useState(false);
   const [copiedLinear, setCopiedLinear] = useState(false);
@@ -46,96 +52,40 @@ export function App() {
     setCurrentSpec(preset.spec);
   };
 
-  const handleCustomPrompt = (prompt: string) => {
-    setIsGenerating(true);
-    setTimeout(() => {
-      const generatedSpec: SpecDocument = {
-        id: `spec-${Date.now().toString().slice(-6)}`,
-        createdAt: new Date().toISOString(),
-        prompt: prompt,
-        title: prompt.length > 55 ? prompt.substring(0, 55) + '...' : prompt,
-        targetKpi: '+24.2% User Feature Adoption; <60ms P99 Interaction Latency',
-        problemStatement: `Users currently experience high friction, cognitive load, and edge-case ambiguity when attempting to execute: "${prompt}". Existing workflows require manual coordination across disjointed tools, creating silent failures and data discrepancies.`,
-        userJourney: {
-          persona: 'Technical Product Lead / Senior Engineer',
-          entryPoint: 'Primary application dashboard or command menu',
-          targetOutcome: 'Instant, deterministic completion with optimistic local feedback and zero lost state'
-        },
-        acceptanceCriteria: [
-          {
-            id: 'ac-1',
-            scenario: 'User initiates the automated action from UI or hotkey',
-            given: 'User has an active session with verified workspace permissions',
-            when: `Action "${prompt}" is triggered`,
-            then: 'State transition is applied optimistically in local cache within 20ms'
-          },
-          {
-            id: 'ac-2',
-            scenario: 'Transient network failure during background synchronization',
-            given: 'Client loses network connectivity mid-handshake',
-            when: 'Mutation fails with timeout or disconnection',
-            then: 'Request is placed in local offline mutation queue with exponential backoff and zero UI block'
-          }
-        ],
-        dataSchemaDiff: [
-          {
-            entity: 'feature_events_log',
-            action: 'create',
-            description: 'Idempotency and audit ledger for asynchronous state mutations',
-            fields: [
-              { name: 'id', type: 'UUID PRIMARY KEY', description: 'Deterministic unique event ID' },
-              { name: 'idempotency_hash', type: 'VARCHAR(64) UNIQUE NOT NULL', description: 'SHA-256 validation token' },
-              { name: 'status', type: 'VARCHAR(32)', description: 'pending | committed | rolled_back' }
-            ]
-          }
-        ],
-        edgeCases: [
-          {
-            id: 'ec-gen-1',
-            category: 'concurrency',
-            severity: 'High',
-            title: 'Race Condition under Rapid Sequential Triggers',
-            scenario: 'User triggers multiple executions in rapid succession before the initial request acknowledges.',
-            mitigation: 'Implement local optimistic lock + server-side distributed Redis mutex lease with 3s TTL.'
-          },
-          {
-            id: 'ec-gen-2',
-            category: 'idempotency',
-            severity: 'Medium',
-            title: 'Stale State Overwrite on Delayed Acknowledgment',
-            scenario: 'Slow 4G response arrives after a subsequent client mutation has already been applied locally.',
-            mitigation: 'Enforce Hybrid Logical Clocks (HLC) / Vector clocks to guarantee deterministic Last-Write-Wins.'
-          }
-        ],
-        linearIssues: [
-          {
-            id: 'lin-gen-1',
-            title: `[Core] Implement ${prompt.slice(0, 35)} Backend Pipeline`,
-            priority: 1,
-            estimate: 5,
-            area: 'Backend',
-            acceptanceCriteria: ['Implement primary data handler with idempotency check', 'Add unit tests for network boundaries']
-          },
-          {
-            id: 'lin-gen-2',
-            title: `[UI] Build Keyboard-First Interface for ${prompt.slice(0, 25)}`,
-            priority: 2,
-            estimate: 3,
-            area: 'Frontend',
-            acceptanceCriteria: ['Support Cmd+K action palette trigger', 'Optimistic UI update state machine with 0ms lag']
-          }
-        ],
-        mockupState: {
-          type: 'generic',
-          title: 'Custom Feature Live Sandbox',
-          subtitle: prompt,
-          config: {}
-        }
-      };
+  const handleCustomPrompt = async (prompt: string) => {
+    const key = getStoredApiKey();
+    if (!key) {
+      setApiError('A free Gemini API Key is required for live AI synthesis. Paste your key below to unlock custom generations.');
+      setIsApiKeyModalOpen(true);
+      return;
+    }
 
+    setIsGenerating(true);
+    setApiError(null);
+    setSynthesisStatus('Initializing SpecOS multi-agent synthesis...');
+
+    try {
+      const generatedSpec = await generateSpecWithGemini(
+        prompt,
+        key,
+        (status) => setSynthesisStatus(status)
+      );
       setCurrentSpec(generatedSpec);
+      setActivePreset({
+        id: generatedSpec.id,
+        name: generatedSpec.title.length > 25 ? generatedSpec.title.slice(0, 25) + '...' : generatedSpec.title,
+        prompt: prompt,
+        tag: 'Live AI Spec',
+        spec: generatedSpec,
+      });
+      setActiveTab('prd');
+    } catch (err: any) {
+      console.error('Spec generation failed:', err);
+      setApiError(err.message || 'Failed to generate specification. Please try again.');
+    } finally {
       setIsGenerating(false);
-    }, 1300);
+      setSynthesisStatus('');
+    }
   };
 
   const copyMarkdownPRD = () => {
@@ -201,17 +151,51 @@ ${currentSpec.linearIssues.map(li => `- [P${li.priority}] ${li.title} (${li.area
         linearIssuesCount={currentSpec.linearIssues.length}
         theme={theme}
         onToggleTheme={toggleTheme}
+        onOpenApiKey={() => setIsApiKeyModalOpen(true)}
+        isApiKeyConfigured={hasKey}
       />
 
       {/* Main Container */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 pt-6 pb-16 space-y-6">
-        {/* Prompt Bar with Presets */}
+        {/* API Error Notification */}
+        <AnimatePresence>
+          {apiError && (
+            <motion.div
+              initial={{ opacity: 0, y: -8, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -8, scale: 0.98 }}
+              className="p-4 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-rose-500 text-xs flex items-center justify-between shadow-apple-sm"
+            >
+              <div className="flex items-center space-x-2.5">
+                <ShieldAlert className="w-4 h-4 flex-shrink-0" />
+                <span className="font-medium">{apiError}</span>
+              </div>
+              <div className="flex items-center space-x-3">
+                <button
+                  onClick={() => setIsApiKeyModalOpen(true)}
+                  className="font-semibold underline hover:text-rose-600 transition-colors"
+                >
+                  Configure Key
+                </button>
+                <button
+                  onClick={() => setApiError(null)}
+                  className="text-rose-400 hover:text-rose-600 p-1"
+                >
+                  ✕
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Prompt Bar with Presets & Live Multi-Agent Status */}
         <PromptBar
           presets={DEMO_PRESETS}
           activePresetId={activePreset.id}
           onSelectPreset={handleSelectPreset}
           onSubmitCustomPrompt={handleCustomPrompt}
           isGenerating={isGenerating}
+          synthesisStatus={synthesisStatus}
         />
 
         {/* Dynamic Tab Views with Luxurious Spring Presence */}
@@ -378,6 +362,16 @@ ${currentSpec.linearIssues.map(li => `- [P${li.priority}] ${li.title} (${li.area
         onExportMarkdown={copyMarkdownPRD}
         onExportLinear={copyLinearJson}
         onSubmitCustomPrompt={handleCustomPrompt}
+      />
+
+      {/* Gemini API Key Configuration Modal */}
+      <ApiKeyModal
+        isOpen={isApiKeyModalOpen}
+        onClose={() => setIsApiKeyModalOpen(false)}
+        onKeySaved={() => {
+          setHasKey(hasApiKey());
+          setApiError(null);
+        }}
       />
 
       {/* Apple-grade Minimalist Footer */}

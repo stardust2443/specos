@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { ArrowRight, Sparkles, Command } from 'lucide-react';
 import { DemoPreset } from '../types/spec';
 
@@ -9,6 +9,7 @@ interface Props {
   onSelectPreset: (preset: DemoPreset) => void;
   onSubmitCustomPrompt: (prompt: string) => void;
   isGenerating: boolean;
+  synthesisStatus?: string;
 }
 
 export const PromptBar = ({
@@ -17,6 +18,7 @@ export const PromptBar = ({
   onSelectPreset,
   onSubmitCustomPrompt,
   isGenerating,
+  synthesisStatus,
 }: Props) => {
   const [prompt, setPrompt] = useState('');
 
@@ -64,6 +66,27 @@ export const PromptBar = ({
           </motion.button>
         </div>
       </form>
+
+      {/* Live Multi-Agent Status Indicator */}
+      <AnimatePresence>
+        {isGenerating && (
+          <motion.div
+            initial={{ opacity: 0, y: -4, height: 0 }}
+            animate={{ opacity: 1, y: 0, height: 'auto' }}
+            exit={{ opacity: 0, y: -4, height: 0 }}
+            transition={{ duration: 0.2 }}
+            className="flex items-center space-x-2.5 text-xs font-mono px-3.5 py-1.5 rounded-xl bg-apple-accent/10 border border-apple-accent/25 text-apple-accent w-fit shadow-apple-sm overflow-hidden"
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-apple-accent opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-apple-accent"></span>
+            </span>
+            <span className="font-medium tracking-tight">
+              {synthesisStatus || 'Synthesizing living specification...'}
+            </span>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Preset Pill Carousel (Single-Line Compact Row) */}
       <div className="flex items-center gap-2 pt-1 overflow-x-auto no-scrollbar flex-nowrap pb-0.5">

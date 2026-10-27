@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
-import { Layers, Sparkles, Copy, Check, Command, FileText, ShieldAlert, MonitorPlay, ExternalLink, ChevronDown, Sun, Moon } from 'lucide-react';
+import { Layers, Sparkles, Copy, Check, Command, FileText, ShieldAlert, MonitorPlay, ExternalLink, ChevronDown, Sun, Moon, KeyRound } from 'lucide-react';
 
 export type ActiveTab = 'prd' | 'audit' | 'linear' | 'sandbox';
 
@@ -16,6 +16,8 @@ interface Props {
   linearIssuesCount: number;
   theme: 'light' | 'dark';
   onToggleTheme: () => void;
+  onOpenApiKey?: () => void;
+  isApiKeyConfigured?: boolean;
 }
 
 export const Header = ({
@@ -30,6 +32,8 @@ export const Header = ({
   linearIssuesCount,
   theme,
   onToggleTheme,
+  onOpenApiKey,
+  isApiKeyConfigured,
 }: Props) => {
   const [showExportMenu, setShowExportMenu] = useState(false);
 
@@ -97,6 +101,20 @@ export const Header = ({
 
         {/* Right Action Island */}
         <div className="flex items-center space-x-2">
+          {/* Gemini API Key Trigger */}
+          <button
+            onClick={onOpenApiKey}
+            className="relative w-8 h-8 rounded-xl bg-apple-elevated hover:bg-apple-hover border border-apple-border text-apple-textSecondary hover:text-apple-text flex items-center justify-center transition-all apple-pressable shadow-sm"
+            title={isApiKeyConfigured ? 'Gemini AI Engine Active (Click to edit key)' : 'Connect Gemini API Key for live AI generation'}
+          >
+            <KeyRound className="w-3.5 h-3.5 text-apple-accent" />
+            <span
+              className={`absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full ${
+                isApiKeyConfigured ? 'bg-apple-emerald shadow-apple-glow' : 'bg-apple-amber'
+              }`}
+            />
+          </button>
+
           {/* Theme Toggle Button with Micro-Rotation */}
           <button
             onClick={onToggleTheme}
