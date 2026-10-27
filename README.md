@@ -1,4 +1,4 @@
-# SpecOS ⚡
+# SpecOS 
 > **The Local-First AI PRD & Spec Engine for High-Velocity Product Teams**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
@@ -19,7 +19,7 @@ Built by reverse-engineering the ergonomic speed of **Linear** and the modular b
 
 ---
 
-## ✨ Core Pillars
+## Core Pillars
 
 ```mermaid
 flowchart LR
@@ -40,10 +40,10 @@ Structured block tree comprising:
 
 ### 2. Synthetic Tech Lead Audit (The Secret Weapon)
 Before engineers see the spec, an adversarial AI agent stress-tests the feature across 4 failure vectors:
-* ⚡ **Concurrency & Race Conditions** (e.g., rapid double-taps, simultaneous mutations)
-* 🔁 **Idempotency & Retries** (e.g., webhook vs. client redirect race conditions)
-* 🚫 **Rate Limits & Abuse Prevention** (e.g., card testing bots, token exhaustion)
-* 🔄 **UX Recovery & Degradation** (e.g., network drops mid-transaction, offline fallback)
+* **Concurrency & Race Conditions** (e.g., rapid double-taps, simultaneous mutations)
+* **Idempotency & Retries** (e.g., webhook vs. client redirect race conditions)
+* **Rate Limits & Abuse Prevention** (e.g., card testing bots, token exhaustion)
+* **UX Recovery & Degradation** (e.g., network drops mid-transaction, offline fallback)
 
 ### 3. Linear Issue Decomposition
 Auto-decomposes user stories into atomic engineering issues:
@@ -64,12 +64,12 @@ Inline sandbox rendering a functional, interactive UI prototype (e.g., simulatin
 * **Latency Profile:** Sub-50ms local mutations, instant page load.
 * **Documentation & Rigor:**
   * 📄 [Product Requirements Document (PRD)](docs/PRD.md)
-  * 🏗️ [ADR-001: Local-First Architecture](docs/adr/ADR-001-local-first-architecture.md)
-  * 🔬 [Reverse-Engineering Teardown: Linear & Notion](docs/TEARDOWN.md)
+  * [ADR-001: Local-First Architecture](docs/adr/ADR-001-local-first-architecture.md)
+  * [Reverse-Engineering Teardown: Linear & Notion](docs/TEARDOWN.md)
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ```bash
 # Clone the repository
@@ -87,13 +87,5 @@ npm run build
 
 ---
 
-## 👤 Author
-
-**Arun Mitra Kommireddy**  
-*Solo AI Product Manager & Technical Builder*  
-* BITS Pilani (M.Sc. Physics + B.E. Mechanical Engineering)  
-* Product Manager at Edwisely (discovery, design & delivery for 120k students)  
-* Analytics at Swiggy (automated high-volume operations pipelines)  
-* Direct Outreach & Astrophysics Research at University of Bologna, Italy  
 
 📫 **Contact:** [LinkedIn](https://linkedin.com/in/arun7mitra) | arunmitra777@gmail.com | +91 7032279111
