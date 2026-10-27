@@ -11,7 +11,7 @@ Built by reverse-engineering the ergonomic speed of **Linear** and the modular b
 
 ---
 
-## 🎯 The Problem
+## The Problem
 
 1. **Dead PRDs:** Traditional specs in Notion or Google Docs rot within two weeks because they are disconnected from sprint backlogs.
 2. **The "Edge-Case Blindspot":** Junior/Mid PMs default to specifying the happy path. Critical edge cases (concurrency, race conditions, idempotency, rate limits) are only discovered mid-sprint, triggering 25–40% schedule blowups.
@@ -57,13 +57,13 @@ Inline sandbox rendering a functional, interactive UI prototype (e.g., simulatin
 
 ---
 
-## 🛠️ Technical Architecture & Design Decisions
+## Technical Architecture & Design Decisions
 
 * **UI & Rendering:** React 19, Vite, Tailwind CSS, Lucide Icons.
 * **State Machine:** Zustand with local-first persistent storage.
 * **Latency Profile:** Sub-50ms local mutations, instant page load.
 * **Documentation & Rigor:**
-  * 📄 [Product Requirements Document (PRD)](docs/PRD.md)
+  * [Product Requirements Document (PRD)](docs/PRD.md)
   * [ADR-001: Local-First Architecture](docs/adr/ADR-001-local-first-architecture.md)
   * [Reverse-Engineering Teardown: Linear & Notion](docs/TEARDOWN.md)
 
