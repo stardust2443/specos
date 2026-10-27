@@ -1,8 +1,4 @@
-# Reverse-Engineering Teardown: Linear & Notion
-
-**Author:** Arun Mitra Kommireddy (Solo AI PM)  
-**Document:** Technical Analysis & Clean-Room Architecture Specification  
-**Project:** SpecOS  
+# Reverse-Engineering Teardown: Linear & Notion 
 
 ---
 
