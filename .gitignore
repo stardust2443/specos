@@ -25,3 +25,12 @@ dist-ssr
 .chrome-test/
 *.aux
 *.out
+
+# Internal Strategy, Handoff & Job Search Assets
+HANDOFF.md
+JOB_SEARCH_*.md
+docs/
+*.tex
+*.pdf
+resume.png
+missfont.log
