@@ -31,7 +31,7 @@ export const PromptBar = ({
 
   return (
     <div className="w-full space-y-3.5">
-      {/* Input Field */}
+      {/* Spotlight-Style Input Container */}
       <form onSubmit={handleSubmit} className="relative flex items-center group">
         <div className="absolute left-4 text-apple-accent pointer-events-none transition-transform group-focus-within:scale-110">
           <Sparkles className="w-4 h-4" />
@@ -42,7 +42,7 @@ export const PromptBar = ({
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
           placeholder="What feature would you like to build? (e.g. 'Add one-click Apple Pay guest checkout')..."
-          className="w-full pl-11 pr-36 py-3.5 glass-input rounded-2xl text-sm text-apple-text placeholder-apple-textSecondary focus:border-apple-accent focus:ring-4 focus:ring-apple-accent/15 outline-none transition-all shadow-apple-md font-sans"
+          className="w-full pl-11 pr-36 py-3.5 rounded-2xl bg-white dark:bg-[#1C1C1E] border border-apple-border dark:border-white/10 text-sm text-apple-text placeholder-apple-textTertiary focus:border-apple-accent focus:ring-2 focus:ring-apple-accent/20 outline-none transition-all shadow-apple-md font-sans"
         />
 
         <div className="absolute right-2 flex items-center space-x-1.5">
@@ -51,7 +51,7 @@ export const PromptBar = ({
             whileTap={{ scale: 0.98 }}
             type="submit"
             disabled={!prompt.trim() || isGenerating}
-            className="px-4 py-2 bg-apple-accent hover:bg-apple-accentHover disabled:opacity-30 disabled:pointer-events-none text-white text-xs font-semibold rounded-xl flex items-center space-x-1.5 transition-all shadow-apple-sm apple-pressable"
+            className="px-4 py-2 bg-apple-accent hover:bg-apple-accentHover disabled:opacity-40 disabled:pointer-events-none text-white text-xs font-semibold rounded-xl flex items-center space-x-1.5 transition-all shadow-apple-sm apple-pressable min-h-[34px]"
           >
             {isGenerating ? (
               <motion.div
@@ -75,7 +75,7 @@ export const PromptBar = ({
             animate={{ opacity: 1, y: 0, height: 'auto' }}
             exit={{ opacity: 0, y: -4, height: 0 }}
             transition={{ duration: 0.2 }}
-            className="flex items-center space-x-2.5 text-xs font-mono px-3.5 py-1.5 rounded-xl bg-apple-accent/10 border border-apple-accent/25 text-apple-accent w-fit shadow-apple-sm overflow-hidden"
+            className="flex items-center space-x-2.5 text-xs font-mono px-3.5 py-1.5 rounded-xl bg-apple-accent/10 border border-apple-accent/25 text-apple-accent w-fit shadow-apple-subtle overflow-hidden"
           >
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-apple-accent opacity-75"></span>
@@ -88,8 +88,8 @@ export const PromptBar = ({
         )}
       </AnimatePresence>
 
-      {/* Preset Pill Carousel (Single-Line Compact Row) */}
-      <div className="flex items-center gap-2 pt-1 overflow-x-auto no-scrollbar flex-nowrap pb-0.5">
+      {/* Preset Pill Carousel (Single-Line Compact Row with High Contrast) */}
+      <div className="flex items-center gap-2 pt-0.5 overflow-x-auto no-scrollbar flex-nowrap pb-0.5">
         <div className="flex items-center space-x-1.5 text-[11px] font-mono text-apple-textTertiary mr-1 flex-shrink-0">
           <Command className="w-3 h-3" />
           <span>Curated Presets:</span>
@@ -101,24 +101,19 @@ export const PromptBar = ({
             <motion.button
               key={preset.id}
               onClick={() => onSelectPreset(preset)}
-              whileHover={{ y: -1, scale: 1.02 }}
+              whileHover={{ y: -1 }}
               whileTap={{ scale: 0.98 }}
-              className={`relative px-3 py-1.5 rounded-xl text-xs font-medium transition-all flex items-center space-x-2 flex-shrink-0 whitespace-nowrap ${
+              className={`relative px-3 py-1.5 rounded-xl text-xs font-medium transition-all flex items-center space-x-2 flex-shrink-0 whitespace-nowrap min-h-[30px] ${
                 isSelected
-                  ? 'text-apple-accent font-semibold border border-apple-accent/50 bg-apple-accent/10 shadow-apple-sm'
-                  : 'text-apple-textSecondary hover:text-apple-text glass-pill hover:border-apple-borderHighlight'
+                  ? 'bg-white dark:bg-[#2C2C2E] text-apple-text font-semibold border border-apple-accent/40 dark:border-white/20 shadow-apple-sm'
+                  : 'bg-apple-elevated/70 hover:bg-apple-elevated text-apple-textSecondary hover:text-apple-text border border-apple-border'
               }`}
             >
-              {isSelected && (
-                <motion.div
-                  layoutId="activePresetGlow"
-                  className="absolute inset-0 rounded-xl bg-apple-accent/10 border border-apple-accent/30 pointer-events-none"
-                  transition={{ type: 'spring', damping: 28, stiffness: 180 }}
-                />
-              )}
               <span className="relative z-10">{preset.name}</span>
               <span className={`relative z-10 text-[10px] font-mono px-1.5 py-0.5 rounded-md ${
-                isSelected ? 'bg-apple-accent/20 text-apple-accent font-semibold' : 'bg-apple-elevated text-apple-textTertiary border border-apple-border'
+                isSelected 
+                  ? 'bg-apple-accent/15 text-apple-accent font-semibold' 
+                  : 'bg-apple-hover text-apple-textTertiary border border-apple-border-subtle'
               }`}>
                 {preset.tag}
               </span>

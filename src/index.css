@@ -5,52 +5,84 @@
 @layer base {
   :root {
     color-scheme: light;
-    --apple-bg: #F8F9FA;
+    /* Apple HIG Light Mode System Hierarchy */
+    --apple-bg: #F5F5F7;
     --apple-surface: #FFFFFF;
-    --apple-elevated: #F1F3F5;
-    --apple-hover: #E9ECEF;
+    --apple-elevated: #E5E5EA;
+    --apple-hover: #EBEBED;
     --apple-border: rgba(0, 0, 0, 0.08);
     --apple-border-subtle: rgba(0, 0, 0, 0.04);
-    --apple-border-highlight: rgba(0, 0, 0, 0.12);
-    --apple-text: #1C1E21;
-    --apple-text-secondary: #5F656B;
-    --apple-text-tertiary: #8C9298;
-    --apple-accent: #0071E3;
+    --apple-border-highlight: rgba(0, 0, 0, 0.14);
+    
+    /* Apple SF Pro High-Contrast Typography Tokens (WCAG AA Compliant) */
+    --apple-text: #1D1D1F;            /* Label: 16.1:1 contrast */
+    --apple-text-secondary: #515154;  /* Secondary: 6.8:1 contrast */
+    --apple-text-tertiary: #6E6E73;   /* Tertiary: 4.6:1 contrast (meets 4.5:1 floor) */
+    
+    /* Apple Semantic System Colors */
+    --apple-accent: #0071E3;          /* Apple System Blue */
     --apple-accent-hover: #0077ED;
-    --apple-glass-bg: rgba(255, 255, 255, 0.9);
+    --apple-emerald: #34C759;         /* Apple System Green */
+    --apple-amber: #FF9500;           /* Apple System Orange */
+    --apple-red: #FF3B30;             /* Apple System Red */
+    --apple-purple: #AF52DE;          /* Apple System Purple */
+
+    /* Apple Liquid Glass (Functional Floating Layer Only) */
+    --apple-glass-bg: rgba(255, 255, 255, 0.82);
     --apple-glass-border: rgba(0, 0, 0, 0.08);
     --apple-glass-pill: rgba(0, 0, 0, 0.04);
     --apple-glass-input: rgba(255, 255, 255, 0.95);
-    --apple-glass-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.02), inset 0 1px 0 0 rgba(255, 255, 255, 1);
-    --apple-subcard-bg: rgba(0, 0, 0, 0.02);
-    --apple-subcard-border: rgba(0, 0, 0, 0.06);
-    --apple-code-bg: rgba(0, 0, 0, 0.03);
+    --apple-glass-shadow: 0 8px 32px -4px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    
+    /* Content Layer Surfaces */
+    --apple-card-bg: #FFFFFF;
+    --apple-card-border: rgba(0, 0, 0, 0.06);
+    --apple-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.02);
+    --apple-subcard-bg: #F8F9FA;
+    --apple-subcard-border: rgba(0, 0, 0, 0.05);
+    --apple-code-bg: #F1F3F5;
     --apple-code-border: rgba(0, 0, 0, 0.06);
   }
 
   .dark {
     color-scheme: dark;
-    --apple-bg: #121316;
-    --apple-surface: #1A1B20;
-    --apple-elevated: #22242B;
-    --apple-hover: #2A2D35;
+    /* Apple HIG Dark Mode System Hierarchy */
+    --apple-bg: #000000;
+    --apple-surface: #1C1C1E;
+    --apple-elevated: #2C2C2E;
+    --apple-hover: #3A3A3C;
     --apple-border: rgba(255, 255, 255, 0.08);
     --apple-border-subtle: rgba(255, 255, 255, 0.04);
-    --apple-border-highlight: rgba(255, 255, 255, 0.14);
+    --apple-border-highlight: rgba(255, 255, 255, 0.16);
+    
+    /* Dark Mode Typography Tokens */
     --apple-text: #F5F5F7;
-    --apple-text-secondary: #98989D;
-    --apple-text-tertiary: #636366;
+    --apple-text-secondary: #A1A1A6;  /* 7.2:1 contrast */
+    --apple-text-tertiary: #8E8E93;   /* 5.1:1 contrast */
+    
+    /* Apple Dark Mode System Accents */
     --apple-accent: #0A84FF;
     --apple-accent-hover: #0071E3;
-    --apple-glass-bg: rgba(26, 27, 32, 0.82);
-    --apple-glass-border: rgba(255, 255, 255, 0.08);
-    --apple-glass-pill: rgba(255, 255, 255, 0.04);
-    --apple-glass-input: rgba(30, 32, 38, 0.85);
-    --apple-glass-shadow: 0 4px 24px -2px rgba(0, 0, 0, 0.5), inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
-    --apple-subcard-bg: rgba(255, 255, 255, 0.02);
-    --apple-subcard-border: rgba(255, 255, 255, 0.06);
-    --apple-code-bg: rgba(0, 0, 0, 0.4);
-    --apple-code-border: rgba(255, 255, 255, 0.04);
+    --apple-emerald: #30D158;
+    --apple-amber: #FF9F0A;
+    --apple-red: #FF453A;
+    --apple-purple: #BF5AF2;
+
+    /* Apple Liquid Glass (Functional Floating Layer Only) */
+    --apple-glass-bg: rgba(28, 28, 30, 0.78);
+    --apple-glass-border: rgba(255, 255, 255, 0.10);
+    --apple-glass-pill: rgba(255, 255, 255, 0.05);
+    --apple-glass-input: rgba(36, 36, 39, 0.88);
+    --apple-glass-shadow: 0 12px 40px -4px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    
+    /* Content Layer Surfaces */
+    --apple-card-bg: #1C1C1E;
+    --apple-card-border: rgba(255, 255, 255, 0.07);
+    --apple-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 6px 18px rgba(0, 0, 0, 0.25);
+    --apple-subcard-bg: #242426;
+    --apple-subcard-border: rgba(255, 255, 255, 0.05);
+    --apple-code-bg: #141416;
+    --apple-code-border: rgba(255, 255, 255, 0.05);
   }
   
   body {
@@ -61,6 +93,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    letter-spacing: -0.01em;
     transition: background-color 200ms ease, color 200ms ease;
   }
 
@@ -75,11 +108,33 @@
   }
 }
 
-/* Apple-style Translucent Materials */
+/* =========================================================
+   Apple HIG Content Layer Cards (Crisp, Opaque Standard Materials)
+   ========================================================= */
+.apple-card {
+  background-color: var(--apple-card-bg);
+  border: 1px solid var(--apple-card-border);
+  box-shadow: var(--apple-card-shadow);
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.apple-card-elevated {
+  background-color: var(--apple-elevated);
+  border: 1px solid var(--apple-border-subtle);
+}
+
+.apple-card-subtle {
+  background-color: var(--apple-subcard-bg);
+  border: 1px solid var(--apple-subcard-border);
+}
+
+/* =========================================================
+   Apple HIG Functional Floating Layer (Liquid Glass)
+   ========================================================= */
 .glass-panel {
   background: var(--apple-glass-bg);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(28px) saturate(190%);
+  -webkit-backdrop-filter: blur(28px) saturate(190%);
   border: 1px solid var(--apple-glass-border);
   box-shadow: var(--apple-glass-shadow);
   transition: background-color 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
@@ -101,19 +156,21 @@
   transition: background-color 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
 }
 
-/* Subtle Interactive Spring Feedback */
+/* =========================================================
+   Apple HIG Interactive Feedback & Physics
+   ========================================================= */
 .apple-pressable {
-  transition: transform 120ms cubic-bezier(0.2, 0.8, 0.2, 1), background-color 150ms ease;
+  transition: transform 120ms cubic-bezier(0.2, 0.8, 0.2, 1), background-color 150ms ease, opacity 120ms ease;
 }
 
 .apple-pressable:active {
-  transform: scale(0.975);
+  transform: scale(0.98);
 }
 
-/* Minimalist Scrollbar */
+/* Minimalist macOS Scrollbar */
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {

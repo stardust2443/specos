@@ -75,21 +75,21 @@ export const Header = ({
                 key={item.id}
                 onClick={() => onChangeTab(item.id)}
                 className={`relative px-3 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center space-x-1.5 ${
-                  isActive ? 'text-apple-accent dark:text-apple-text font-semibold' : 'text-apple-textSecondary hover:text-apple-text'
-                } apple-pressable`}
+                  isActive ? 'text-apple-text font-semibold' : 'text-apple-textSecondary hover:text-apple-text'
+                } apple-pressable min-h-[30px]`}
               >
                 {isActive && (
                   <motion.div
                     layoutId="activeTabPill"
-                    transition={{ type: 'spring', damping: 28, stiffness: 170 }}
-                    className="absolute inset-0 bg-white dark:bg-apple-surface rounded-lg border border-black/10 dark:border-white/10 shadow-sm"
+                    transition={{ type: 'spring', damping: 26, stiffness: 220 }}
+                    className="absolute inset-0 bg-white dark:bg-apple-surface rounded-lg border border-black/[0.08] dark:border-white/[0.12] shadow-apple-subtle"
                   />
                 )}
-                <Icon className="w-3.5 h-3.5 relative z-10" />
+                <Icon className={`w-3.5 h-3.5 relative z-10 ${isActive ? 'text-apple-accent' : 'text-apple-textSecondary'}`} />
                 <span className="relative z-10 hidden md:inline">{item.label}</span>
                 {item.count !== undefined && item.count > 0 && (
-                  <span className={`relative z-10 text-[9px] font-mono px-1.5 py-0.2 rounded-full ${
-                    isActive ? 'bg-apple-accent text-white' : 'bg-apple-elevated text-apple-textSecondary border border-apple-border'
+                  <span className={`relative z-10 text-[10px] font-mono px-1.5 py-0.2 rounded-full ${
+                    isActive ? 'bg-apple-accent/15 text-apple-accent font-semibold' : 'bg-apple-hover text-apple-textTertiary border border-apple-border'
                   }`}>
                     {item.count}
                   </span>
@@ -104,13 +104,13 @@ export const Header = ({
           {/* Gemini API Key Trigger */}
           <button
             onClick={onOpenApiKey}
-            className="relative w-8 h-8 rounded-xl bg-apple-elevated hover:bg-apple-hover border border-apple-border text-apple-textSecondary hover:text-apple-text flex items-center justify-center transition-all apple-pressable shadow-sm"
+            className="relative w-8 h-8 rounded-xl bg-apple-elevated hover:bg-apple-hover border border-apple-border text-apple-textSecondary hover:text-apple-text flex items-center justify-center transition-all apple-pressable shadow-apple-subtle"
             title={isApiKeyConfigured ? 'Gemini AI Engine Active (Click to edit key)' : 'Connect Gemini API Key for live AI generation'}
           >
             <KeyRound className="w-3.5 h-3.5 text-apple-accent" />
             <span
               className={`absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full ${
-                isApiKeyConfigured ? 'bg-apple-emerald shadow-apple-glow' : 'bg-apple-amber'
+                isApiKeyConfigured ? 'bg-apple-emerald ring-2 ring-white dark:ring-apple-surface' : 'bg-apple-amber'
               }`}
             />
           </button>
@@ -118,14 +118,14 @@ export const Header = ({
           {/* Theme Toggle Button with Micro-Rotation */}
           <button
             onClick={onToggleTheme}
-            className="w-8 h-8 rounded-xl bg-apple-elevated hover:bg-apple-hover border border-apple-border text-apple-textSecondary hover:text-apple-text flex items-center justify-center transition-all apple-pressable shadow-sm overflow-hidden"
+            className="w-8 h-8 rounded-xl bg-apple-elevated hover:bg-apple-hover border border-apple-border text-apple-textSecondary hover:text-apple-text flex items-center justify-center transition-all apple-pressable shadow-apple-subtle overflow-hidden"
             title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} mode`}
           >
             <motion.div
               key={theme}
               initial={{ rotate: -90, scale: 0.7, opacity: 0 }}
               animate={{ rotate: 0, scale: 1, opacity: 1 }}
-              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
             >
               {theme === 'dark' ? (
                 <Sun className="w-3.5 h-3.5 text-apple-amber" />
@@ -138,7 +138,7 @@ export const Header = ({
           {/* Quick Search Cmd+K Trigger */}
           <button
             onClick={onOpenCommand}
-            className="flex items-center space-x-1.5 px-2.5 py-1.5 rounded-xl bg-apple-elevated hover:bg-apple-hover border border-apple-border text-xs text-apple-textSecondary hover:text-apple-text transition-all apple-pressable shadow-sm"
+            className="flex items-center space-x-1.5 px-2.5 py-1.5 rounded-xl bg-apple-elevated hover:bg-apple-hover border border-apple-border text-xs text-apple-textSecondary hover:text-apple-text transition-all apple-pressable shadow-apple-subtle min-h-[32px]"
             title="Open Command Palette (Cmd+K)"
           >
             <Command className="w-3.5 h-3.5" />
@@ -149,12 +149,12 @@ export const Header = ({
           <div className="relative">
             <button
               onClick={() => setShowExportMenu(prev => !prev)}
-              className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-apple-accent hover:bg-apple-accentHover text-white text-xs font-medium transition-all shadow-apple-glow apple-pressable"
+              className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-apple-accent hover:bg-apple-accentHover text-white text-xs font-semibold transition-all shadow-apple-sm apple-pressable min-h-[32px]"
             >
               <Sparkles className="w-3.5 h-3.5" />
               <span>Export</span>
               <motion.div animate={{ rotate: showExportMenu ? 180 : 0 }} transition={{ duration: 0.2 }}>
-                <ChevronDown className="w-3 h-3 opacity-80" />
+                <ChevronDown className="w-3 h-3 opacity-90" />
               </motion.div>
             </button>
 

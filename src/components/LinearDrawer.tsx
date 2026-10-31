@@ -41,13 +41,13 @@ export const LinearDrawer = ({ issues, onCopyLinearJson, copiedLinear }: Props) 
   const getPriorityBadge = (priority: PriorityLevel) => {
     switch (priority) {
       case 1:
-        return { label: 'P1 Urgent', style: 'bg-red-500/15 text-red-500 dark:text-red-400 border-red-500/30' };
+        return { label: 'P1 Urgent', style: 'bg-apple-red/15 text-apple-red border-apple-red/30' };
       case 2:
-        return { label: 'P2 High', style: 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/30' };
+        return { label: 'P2 High', style: 'bg-apple-amber/15 text-apple-amber border-apple-amber/30' };
       case 3:
-        return { label: 'P3 Med', style: 'bg-blue-500/15 text-blue-600 dark:text-blue-400 border-blue-500/30' };
+        return { label: 'P3 Med', style: 'bg-apple-accent/15 text-apple-accent border-apple-accent/30' };
       default:
-        return { label: 'P4 Low', style: 'bg-gray-500/15 text-gray-500 dark:text-gray-400 border-gray-500/30' };
+        return { label: 'P4 Low', style: 'bg-apple-elevated text-apple-textSecondary border-apple-border' };
     }
   };
 
@@ -84,11 +84,11 @@ export const LinearDrawer = ({ issues, onCopyLinearJson, copiedLinear }: Props) 
   };
 
   return (
-    <div className="glass-panel rounded-2xl p-7 sm:p-8 space-y-6">
+    <div className="apple-card rounded-3xl p-7 sm:p-8 space-y-6">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-apple-border">
-        <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-2xl bg-apple-purple/10 border border-apple-purple/20 flex items-center justify-center text-apple-purple shadow-apple-sm">
+        <div className="flex items-center space-x-3.5">
+          <div className="w-10 h-10 rounded-2xl bg-apple-purple/15 border border-apple-purple/25 flex items-center justify-center text-apple-purple shadow-apple-subtle">
             <Layers className="w-5 h-5" />
           </div>
           <div>
@@ -107,7 +107,7 @@ export const LinearDrawer = ({ issues, onCopyLinearJson, copiedLinear }: Props) 
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.94 }}
             onClick={downloadCsv}
-            className="p-2 rounded-xl bg-apple-surface hover:bg-apple-hover text-apple-textSecondary hover:text-apple-text border border-apple-border transition-colors shadow-apple-sm"
+            className="p-2 rounded-xl bg-apple-elevated hover:bg-apple-hover text-apple-textSecondary hover:text-apple-text border border-apple-border transition-colors shadow-apple-subtle min-h-[32px] min-w-[32px] flex items-center justify-center"
             title="Download Linear CSV"
           >
             <Download className="w-4 h-4" />
@@ -117,7 +117,7 @@ export const LinearDrawer = ({ issues, onCopyLinearJson, copiedLinear }: Props) 
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.96 }}
             onClick={onCopyLinearJson}
-            className="flex items-center space-x-1.5 px-3.5 py-2 text-xs font-semibold rounded-xl bg-apple-purple/15 hover:bg-apple-purple/25 border border-apple-purple/30 text-purple-600 dark:text-purple-300 transition-colors shadow-apple-sm"
+            className="flex items-center space-x-1.5 px-3.5 py-2 text-xs font-semibold rounded-xl bg-apple-purple/15 hover:bg-apple-purple/25 border border-apple-purple/30 text-apple-purple transition-colors shadow-apple-subtle min-h-[32px]"
           >
             {copiedLinear ? (
               <motion.div initial={{ scale: 0.5 }} animate={{ scale: 1 }} transition={{ type: 'spring', damping: 18, stiffness: 220 }}>
@@ -134,22 +134,22 @@ export const LinearDrawer = ({ issues, onCopyLinearJson, copiedLinear }: Props) 
       {/* Progress Breakdown & Area Filters */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-1">
         {/* Area Filter Tabs with Gliding Indicator */}
-        <div className="flex flex-wrap items-center gap-1 bg-apple-elevated/80 p-1 rounded-xl border border-apple-border">
+        <div className="flex flex-wrap items-center gap-1 bg-apple-elevated/70 p-1 rounded-xl border border-apple-border">
           {areas.map((area) => {
             const isActive = activeArea === area;
             return (
               <button
                 key={area}
                 onClick={() => setActiveArea(area)}
-                className={`relative px-3 py-1 rounded-lg text-xs font-medium transition-colors apple-pressable ${
-                  isActive ? 'text-apple-accent dark:text-apple-text font-semibold' : 'text-apple-textSecondary hover:text-apple-text'
+                className={`relative px-3 py-1.5 rounded-lg text-xs font-medium transition-colors apple-pressable min-h-[30px] ${
+                  isActive ? 'text-apple-text font-semibold' : 'text-apple-textSecondary hover:text-apple-text'
                 }`}
               >
                 {isActive && (
                   <motion.div
                     layoutId="activeLinearAreaPill"
-                    className="absolute inset-0 rounded-lg bg-white dark:bg-apple-surface shadow-apple-sm border border-apple-accent/30 dark:border-apple-border"
-                    transition={{ type: 'spring', damping: 26, stiffness: 160 }}
+                    className="absolute inset-0 rounded-lg bg-white dark:bg-apple-surface shadow-apple-subtle border border-black/[0.08] dark:border-white/[0.12]"
+                    transition={{ type: 'spring', damping: 26, stiffness: 220 }}
                   />
                 )}
                 <span className="relative z-10">{area}</span>
@@ -189,8 +189,8 @@ export const LinearDrawer = ({ issues, onCopyLinearJson, copiedLinear }: Props) 
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.98 }}
                 transition={{ type: 'spring', damping: 28, stiffness: 150 }}
-                whileHover={{ y: -2, transition: { duration: 0.2 } }}
-                className="p-5 rounded-2xl bg-apple-elevated/40 border border-apple-border hover:border-apple-borderHighlight shadow-apple-sm transition-all duration-300 space-y-3 group"
+                whileHover={{ y: -2, transition: { duration: 0.15 } }}
+                className="p-5 rounded-2xl bg-white dark:bg-[#161719] border border-apple-border hover:border-apple-borderHighlight shadow-apple-subtle transition-all duration-300 space-y-3 group"
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-start space-x-3">
@@ -198,7 +198,7 @@ export const LinearDrawer = ({ issues, onCopyLinearJson, copiedLinear }: Props) 
                       whileHover={{ scale: 1.15 }}
                       whileTap={{ scale: 0.85, rotate: 15 }}
                       onClick={() => cycleStatus(issue.id)}
-                      className="mt-0.5 p-1 rounded-lg hover:bg-apple-hover transition-colors apple-pressable"
+                      className="mt-0.5 p-1 rounded-lg hover:bg-apple-hover transition-colors apple-pressable min-h-[28px] min-w-[28px] flex items-center justify-center"
                       title={`Status: ${status} (click to cycle)`}
                     >
                       <motion.div
@@ -216,21 +216,21 @@ export const LinearDrawer = ({ issues, onCopyLinearJson, copiedLinear }: Props) 
                         {issue.title}
                       </h4>
                       <div className="flex items-center space-x-2 mt-1">
-                        <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-md bg-apple-surface text-apple-textSecondary border border-apple-border">
+                        <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-md bg-apple-elevated text-apple-textSecondary border border-apple-border">
                           {issue.area}
                         </span>
                         <span className="text-[11px] font-mono text-apple-textTertiary">
                           {issue.estimate} Story Pts
                         </span>
                         <span className="text-apple-textTertiary">•</span>
-                        <span className="text-[10px] font-mono uppercase text-apple-accent font-medium">
+                        <span className="text-[10px] font-mono uppercase text-apple-accent font-semibold">
                           {status.replace('_', ' ')}
                         </span>
                       </div>
                     </div>
                   </div>
 
-                  <span className={`text-[10px] font-mono uppercase px-2.5 py-1 rounded-lg border whitespace-nowrap font-medium ${priority.style}`}>
+                  <span className={`text-[10px] font-mono uppercase px-2.5 py-1 rounded-lg border whitespace-nowrap font-semibold ${priority.style}`}>
                     {priority.label}
                   </span>
                 </div>

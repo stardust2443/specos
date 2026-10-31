@@ -22,7 +22,7 @@ export const CanvasMockup = ({ config }: Props) => {
   };
 
   return (
-    <div className="max-w-sm mx-auto glass-panel rounded-3xl p-6 shadow-2xl border border-apple-border">
+    <div className="max-w-sm mx-auto apple-card rounded-3xl p-6 shadow-apple-md border border-apple-border">
       {/* Top Handle */}
       <div className="w-10 h-1 bg-apple-borderHighlight rounded-full mx-auto mb-5" />
 
@@ -34,7 +34,7 @@ export const CanvasMockup = ({ config }: Props) => {
           </h4>
         </div>
 
-        <div className="flex items-center space-x-1.5 text-[10px] text-emerald-600 dark:text-emerald-400 font-mono bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20 font-medium">
+        <div className="flex items-center space-x-1.5 text-[10px] text-apple-emerald font-mono bg-apple-emerald/10 px-2 py-0.5 rounded-full border border-apple-emerald/20 font-semibold">
           <RefreshCw className="w-2.5 h-2.5 animate-spin" />
           <span>Yjs Synced</span>
         </div>
@@ -69,12 +69,12 @@ export const CanvasMockup = ({ config }: Props) => {
               ) : (
                 <Square className="w-4 h-4 text-apple-textTertiary flex-shrink-0" />
               )}
-              <span className={`text-xs ${item.done ? 'line-through text-apple-textTertiary' : 'text-apple-text'}`}>
+              <span className={`text-xs ${item.done ? 'line-through text-apple-textTertiary' : 'text-apple-text font-medium'}`}>
                 {item.text}
               </span>
             </div>
 
-            <div className="flex items-center space-x-1 font-mono text-[10px] bg-apple-surface text-apple-accent px-2 py-0.5 rounded-md border border-apple-border">
+            <div className="flex items-center space-x-1 font-mono text-[10px] bg-apple-surface text-apple-accent px-2 py-0.5 rounded-md border border-apple-border font-semibold">
               <span>{item.ticket}</span>
               <ExternalLink className="w-2.5 h-2.5" />
             </div>

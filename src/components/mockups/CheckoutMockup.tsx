@@ -21,8 +21,8 @@ export const CheckoutMockup = ({ config }: Props) => {
   };
 
   return (
-    <div className="relative max-w-sm mx-auto glass-panel rounded-3xl p-6 shadow-2xl border border-apple-border overflow-hidden">
-      {/* Top Sheet Handle (Emil Kowalski / Apple Drawer standard) */}
+    <div className="relative max-w-sm mx-auto apple-card rounded-3xl p-6 shadow-apple-md border border-apple-border overflow-hidden">
+      {/* Top Sheet Handle (Apple Sheet Standard) */}
       <div className="w-10 h-1 bg-apple-borderHighlight rounded-full mx-auto mb-5" />
 
       {/* Header Item Details */}

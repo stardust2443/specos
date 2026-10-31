@@ -131,11 +131,9 @@ ${currentSpec.linearIssues.map(li => `- [P${li.priority}] ${li.title} (${li.area
 
   return (
     <div className="min-h-screen bg-apple-bg text-apple-text flex flex-col font-sans selection:bg-apple-accent selection:text-white relative overflow-x-hidden">
-      {/* Ambient Radial Mesh Gradient */}
-      <div className={`fixed top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] blur-3xl pointer-events-none -z-10 transition-colors duration-500 ${
-        theme === 'dark'
-          ? 'bg-gradient-to-b from-apple-accent/15 via-purple-500/5 to-transparent'
-          : 'bg-gradient-to-b from-blue-500/10 via-amber-400/5 to-transparent'
+      {/* Subtle Apple Ambient Highlight */}
+      <div className={`fixed top-0 left-1/2 -translate-x-1/2 w-[900px] h-[280px] blur-3xl pointer-events-none -z-10 transition-opacity duration-700 ${
+        theme === 'dark' ? 'bg-apple-accent/5 opacity-60' : 'bg-apple-accent/[0.03] opacity-80'
       }`} />
 
       {/* Floating Island Header */}
@@ -230,16 +228,16 @@ ${currentSpec.linearIssues.map(li => `- [P${li.priority}] ${li.title} (${li.area
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {/* Card 1: Interactive Sandbox */}
                   <motion.button
-                    whileHover={{ y: -3, transition: { duration: 0.2 } }}
+                    whileHover={{ y: -2, transition: { duration: 0.15 } }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => setActiveTab('sandbox')}
-                    className="p-5 rounded-2xl bg-apple-elevated/40 hover:bg-apple-elevated border border-apple-border hover:border-apple-borderHighlight text-left transition-all shadow-apple-sm group space-y-3 apple-pressable"
+                    className="p-5 rounded-2xl apple-card hover:border-apple-accent/40 text-left transition-all shadow-apple-sm group space-y-3 apple-pressable"
                   >
                     <div className="flex items-center justify-between">
                       <div className="w-9 h-9 rounded-xl bg-apple-accent/10 border border-apple-accent/20 flex items-center justify-center text-apple-accent">
                         <MonitorPlay className="w-4 h-4" />
                       </div>
-                      <span className="text-[10px] font-mono text-apple-accent font-semibold group-hover:translate-x-0.5 transition-transform">
+                      <span className="text-[11px] font-medium text-apple-accent group-hover:translate-x-0.5 transition-transform">
                         Explore →
                       </span>
                     </div>
@@ -247,7 +245,7 @@ ${currentSpec.linearIssues.map(li => `- [P${li.priority}] ${li.title} (${li.area
                       <div className="text-sm font-semibold text-apple-text group-hover:text-apple-accent transition-colors">
                         Interactive Sandbox
                       </div>
-                      <div className="text-xs text-apple-textSecondary mt-0.5">
+                      <div className="text-xs text-apple-textSecondary mt-0.5 leading-relaxed">
                         Live Apple-grade prototype simulating 0ms local state transitions
                       </div>
                     </div>
@@ -255,16 +253,16 @@ ${currentSpec.linearIssues.map(li => `- [P${li.priority}] ${li.title} (${li.area
 
                   {/* Card 2: Tech Lead Audit */}
                   <motion.button
-                    whileHover={{ y: -3, transition: { duration: 0.2 } }}
+                    whileHover={{ y: -2, transition: { duration: 0.15 } }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => setActiveTab('audit')}
-                    className="p-5 rounded-2xl bg-apple-elevated/40 hover:bg-apple-elevated border border-apple-border hover:border-apple-borderHighlight text-left transition-all shadow-apple-sm group space-y-3 apple-pressable"
+                    className="p-5 rounded-2xl apple-card hover:border-apple-amber/40 text-left transition-all shadow-apple-sm group space-y-3 apple-pressable"
                   >
                     <div className="flex items-center justify-between">
                       <div className="w-9 h-9 rounded-xl bg-apple-amber/10 border border-apple-amber/20 flex items-center justify-center text-apple-amber">
                         <ShieldAlert className="w-4 h-4" />
                       </div>
-                      <span className="text-[10px] font-mono text-apple-amber font-semibold group-hover:translate-x-0.5 transition-transform">
+                      <span className="text-[11px] font-medium text-apple-amber group-hover:translate-x-0.5 transition-transform">
                         {currentSpec.edgeCases.length} Risks →
                       </span>
                     </div>
@@ -272,7 +270,7 @@ ${currentSpec.linearIssues.map(li => `- [P${li.priority}] ${li.title} (${li.area
                       <div className="text-sm font-semibold text-apple-text group-hover:text-apple-amber transition-colors">
                         Tech Lead Audit
                       </div>
-                      <div className="text-xs text-apple-textSecondary mt-0.5">
+                      <div className="text-xs text-apple-textSecondary mt-0.5 leading-relaxed">
                         Adversarial failure modes, race conditions &amp; distributed defenses
                       </div>
                     </div>
@@ -280,16 +278,16 @@ ${currentSpec.linearIssues.map(li => `- [P${li.priority}] ${li.title} (${li.area
 
                   {/* Card 3: Linear Sprints */}
                   <motion.button
-                    whileHover={{ y: -3, transition: { duration: 0.2 } }}
+                    whileHover={{ y: -2, transition: { duration: 0.15 } }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => setActiveTab('linear')}
-                    className="p-5 rounded-2xl bg-apple-elevated/40 hover:bg-apple-elevated border border-apple-border hover:border-apple-borderHighlight text-left transition-all shadow-apple-sm group space-y-3 apple-pressable"
+                    className="p-5 rounded-2xl apple-card hover:border-apple-purple/40 text-left transition-all shadow-apple-sm group space-y-3 apple-pressable"
                   >
                     <div className="flex items-center justify-between">
                       <div className="w-9 h-9 rounded-xl bg-apple-purple/10 border border-apple-purple/20 flex items-center justify-center text-apple-purple">
                         <Layers className="w-4 h-4" />
                       </div>
-                      <span className="text-[10px] font-mono text-apple-purple font-semibold group-hover:translate-x-0.5 transition-transform">
+                      <span className="text-[11px] font-medium text-apple-purple group-hover:translate-x-0.5 transition-transform">
                         {currentSpec.linearIssues.length} Tickets →
                       </span>
                     </div>
@@ -297,7 +295,7 @@ ${currentSpec.linearIssues.map(li => `- [P${li.priority}] ${li.title} (${li.area
                       <div className="text-sm font-semibold text-apple-text group-hover:text-apple-purple transition-colors">
                         Linear Sprints
                       </div>
-                      <div className="text-xs text-apple-textSecondary mt-0.5">
+                      <div className="text-xs text-apple-textSecondary mt-0.5 leading-relaxed">
                         P1-P4 Fibonacci tickets ready for 1-click JSON/CSV sprint import
                       </div>
                     </div>
