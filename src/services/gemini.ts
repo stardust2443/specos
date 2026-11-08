@@ -1,7 +1,7 @@
 import { SpecDocument } from '../types/spec';
 
 const API_KEY_STORAGE_KEY = 'specos_gemini_api_key';
-const GEMINI_MODEL = 'gemini-1.5-flash';
+const GEMINI_MODEL = 'gemini-3.8-flash';
 
 export const getStoredApiKey = (): string => {
   if (typeof window !== 'undefined') {
