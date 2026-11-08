@@ -1,9 +1,10 @@
 # SpecOS 
 > **The Local-First AI PRD & Spec Engine for High-Velocity Product Teams**
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Clean-Room Synthesis](https://img.shields.io/badge/Clean--Room-Linear%20%2B%20Notion-5E6AD2)](docs/TEARDOWN.md)
-[![Architecture: Local--First](https://img.shields.io/badge/Architecture-Local--First%20(0ms)-emerald)](docs/adr/ADR-001-local-first-architecture.md)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-specos--mu.vercel.app-000000?logo=vercel)](https://specos-mu.vercel.app/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
+**Live demo:** https://specos-mu.vercel.app/ (presets work instantly; custom prompts need a free Gemini API key from [Google AI Studio](https://aistudio.google.com/apikey))
 
 SpecOS turns a **1-sentence feature prompt** into an executable, edge-case-hardened specification with **auto-generated, typed Linear tickets** and **live interactive UI mockups** in under 30 seconds.
 
@@ -62,10 +63,6 @@ Inline sandbox rendering a functional, interactive UI prototype (e.g., simulatin
 * **UI & Rendering:** React 19, Vite, Tailwind CSS, Lucide Icons.
 * **State Machine:** Zustand with local-first persistent storage.
 * **Latency Profile:** Sub-50ms local mutations, instant page load.
-* **Documentation & Rigor:**
-  * [Product Requirements Document (PRD)](docs/PRD.md)
-  * [ADR-001: Local-First Architecture](docs/adr/ADR-001-local-first-architecture.md)
-  * [Reverse-Engineering Teardown: Linear & Notion](docs/TEARDOWN.md)
 
 ---
 
@@ -88,4 +85,4 @@ npm run build
 ---
 
 
-📫 **Contact:** [LinkedIn](https://linkedin.com/in/arun7mitra) | arunmitra777@gmail.com | +91 7032279111
+📫 **Contact:** [LinkedIn](https://linkedin.com/in/arun7mitra) | arunmitra777@gmail.com
